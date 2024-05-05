@@ -13,7 +13,7 @@ Hi, there! 👋
 This is Xingtong Ge, a master student in Beijing Institute of Technology, also a research intern at the Base Model Group, SenseTime Research.
 I'm expected to receive my Master Degree in June 2024. Before that, I received my Bachelor Degree of Computer Science from Beijing Institute of Technology in June 2022. 
 
-I'm interested in AIGC, Diffusion Models, Video compression, Gaussian Splatting, etc.
+I'm interested in AIGC, Diffusion Models, Video Compression, Gaussian Splatting, etc.
 
 📧: xingtong.ge@gmail.com. Feel free to contact me if you're intersted in my research.
 
@@ -63,7 +63,7 @@ IEEE T-CSVT submitted
 
 **Boosting Neural Representations for Videos with a Conditional Decoder**  
 <span style="font-size: smaller;">
-Xinjie Zhang, Ren Yang, Dailan He, **Xingtong Ge**, Tongda Xu, Yan Wang, Hongwei Qin, Jun Zhang
+Xinjie Zhang, Ren Yang, Dailan He, **Xingtong Ge**, Tongda Xu, Yan Wang, Hongwei Qin, Jun Zhang  
 IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024  
 [[pdf](https://arxiv.org/pdf/2402.18152)]
 </span>
