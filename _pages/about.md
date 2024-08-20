@@ -10,8 +10,9 @@ redirect_from:
 
 Hi, there! 👋
 
-This is Xingtong Ge, a master student in Beijing Institute of Technology, also a research intern at the Base Model Group, SenseTime Research.
-I'm expected to receive my Master Degree in June 2024. Before that, I received my Bachelor Degree of Computer Science from Beijing Institute of Technology in June 2022. 
+This is Xingtong Ge, an algorithm researcher at the Basemodel Group, SenseTime Technology.
+
+I received my Master Degree in June 2024 and my Bachelor Degree of Computer Science from Beijing Institute of Technology in June 2022. 
 
 I'm interested in AIGC, Diffusion Models, Video Compression, Gaussian Splatting, etc.
 
@@ -22,12 +23,13 @@ In my life, I'm a fan of running 🏃 and football ⚽️, I'm also a big fan of
 
 Experience
 ------
+Algorithm Researcher, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Jul. 2024 - Present.*
 
-Research Intern, Base Model Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Feb. 2024 - Present*
+Research Intern, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Feb. 2024 - Jul. 2024*
 
 Research Intern, ISP&Codec Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *May. 2023 - Jan. 2024*
 
-Master student, Software Engineering, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp; *Sep. 2022 - Present*
+Master student, Software Engineering, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp; *Sep. 2022 - Jun. 2024*
 
 Bachelor of Computer Science, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Sep. 2018 - Jun. 2022*
 
@@ -49,15 +51,15 @@ IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024
 **GaussianImage: 1000 FPS Image Representation and Compression by 2D Gaussian Splatting**  
 <span style="font-size: smaller;">
 Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, Guo Lu, Jing Geng, Jun Zhang  
-ECCV 2024 submitted  
+**ECCV** 2024  
 [[pdf](https://arxiv.org/pdf/2403.08551)]
 </span>
 
 **Preprocessing Enhanced Image Compression for Machine Vision**  
 <span style="font-size: smaller;">
 Guo Lu, **Xingtong Ge**, Tianxiong Zhong, Qiang Hu, Jing Geng  
-IEEE T-CSVT submitted  
-[[pdf](https://arxiv.org/pdf/2206.05650)]
+**IEEE TCSVT**  
+[[pdf](https://ieeexplore.ieee.org/abstract/document/10632166/)]
 </span>
 
 
