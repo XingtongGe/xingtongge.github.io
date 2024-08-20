@@ -51,14 +51,14 @@ IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024
 **GaussianImage: 1000 FPS Image Representation and Compression by 2D Gaussian Splatting**  
 <span style="font-size: smaller;">
 Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, Guo Lu, Jing Geng, Jun Zhang  
-**ECCV** 2024  
+ECCV 2024  
 [[pdf](https://arxiv.org/pdf/2403.08551)]
 </span>
 
 **Preprocessing Enhanced Image Compression for Machine Vision**  
 <span style="font-size: smaller;">
 Guo Lu, **Xingtong Ge**, Tianxiong Zhong, Qiang Hu, Jing Geng  
-**IEEE TCSVT**  
+IEEE TCSVT 2024 / arXiv 2022  
 [[pdf](https://ieeexplore.ieee.org/abstract/document/10632166/)]
 </span>
 
