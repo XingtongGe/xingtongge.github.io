@@ -39,7 +39,11 @@ Many of the features of dynamic content management systems (like Wordpress) can 
 
 Research
 ------
-
+**Leveraging Vision Foundation Models for Enhancing Text-to-Image Generation**  
+<span style="font-size: smaller;">
+**Xingtong Ge**, Yi Zhang, Xin Zhang, Dazhong Shen, Yunpeng Liu, Jun Zhang, Guanglu Song, Yu Liu  
+CVPR 2025 under review
+</span>
 
 **Task-Aware Encoder Control for Deep Video Compression**  
 <span style="font-size: smaller;">
