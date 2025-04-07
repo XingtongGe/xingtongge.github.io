@@ -57,6 +57,7 @@ IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024
 Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, Guo Lu, Jing Geng, Jun Zhang  
 European Conference on Computer Vision (**ECCV**), 2024  
 [[pdf](https://arxiv.org/pdf/2403.08551)]
+[[code](https://github.com/Xinjie-Q/GaussianImage)]
 </span>
 
 **Preprocessing Enhanced Image Compression for Machine Vision**  
@@ -64,6 +65,7 @@ European Conference on Computer Vision (**ECCV**), 2024
 Guo Lu, **Xingtong Ge**, Tianxiong Zhong, Qiang Hu, Jing Geng  
 IEEE Transactions on Circuits and Systems for Video Technology (**TCSVT**), 2024 (arXiv, 2022)  
 [[pdf](https://ieeexplore.ieee.org/abstract/document/10632166/)]
+[[code](https://github.com/XingtongGe/PreprocessingICM)]
 </span>
 
 
