@@ -62,7 +62,7 @@ European Conference on Computer Vision (**ECCV**), 2024
 
 **Preprocessing Enhanced Image Compression for Machine Vision**  
 <span style="font-size: smaller;">
-Guo Lu, **Xingtong Ge**, Tianxiong Zhong, Qiang Hu, Jing Geng  
+Guo Lu, **Xingtong Ge\***, Tianxiong Zhong, Qiang Hu, Jing Geng  
 IEEE Transactions on Circuits and Systems for Video Technology (**TCSVT**), 2024 (arXiv, 2022)  
 [[pdf](https://ieeexplore.ieee.org/abstract/document/10632166/)]
 [[code](https://github.com/XingtongGe/PreprocessingICM)]
