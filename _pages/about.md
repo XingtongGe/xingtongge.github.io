@@ -29,7 +29,7 @@ Research Intern, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&n
 
 Research Intern, ISP&Codec Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *May. 2023 - Jan. 2024*
 
-Master student, Software Engineering, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp; *Sep. 2022 - Jun. 2024*
+Master of Software Engineering, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp; *Sep. 2022 - Jun. 2024*
 
 Bachelor of Computer Science, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Sep. 2018 - Jun. 2022*
 
