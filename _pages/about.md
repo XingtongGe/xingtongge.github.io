@@ -33,7 +33,7 @@ Master student, Software Engineering, Beijing Institute of Technology. &nbsp;&nb
 
 Bachelor of Computer Science, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Sep. 2018 - Jun. 2022*
 
-High School Diploma, Shijiazhuang NO.2 Middle School (South Campus). &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Sep. 2015 - Jun. 2018*
+High School Diploma, Shijiazhuang NO.2 Middle School (South Campus). &nbsp; *Sep. 2015 - Jun. 2018*
 
 <!-- Like many other Jekyll-based GitHub Pages templates, Academic Pages makes you separate the website's content from its form. The content & metadata of your website are in structured markdown files, while various other files constitute the theme, specifying how to transform that content & metadata into HTML pages. You keep these various markdown (.md), YAML (.yml), HTML, and CSS files in a public GitHub repository. Each time you commit and push an update to the repository, the [GitHub pages](https://pages.github.com/) service creates static HTML pages based on these files, which are hosted on GitHub's servers free of charge.
 
