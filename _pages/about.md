@@ -41,10 +41,11 @@ Many of the features of dynamic content management systems (like Wordpress) can 
 
 Research
 ------
-**Leveraging Vision Foundation Models for Enhancing Text-to-Image Generation**  
+**SenseFlow: Scaling Distribution Matching for Flow-based Text-to-Image Distillation**  
 <span style="font-size: smaller;">
-**Xingtong Ge**, Yi Zhang, Xin Zhang, Dazhong Shen, Yunpeng Liu, Jun Zhang, Guanglu Song, Yu Liu  
-CVPR 2025 under review
+**Xingtong Ge**, Xin Zhang, Tongda Xu, Yi Zhang, Xinjie Zhang, Yan Wang, Jun Zhang  
+Preprint, 2025  
+[[project page](https://github.com/XingtongGe/SenseFlow)]
 </span>
 
 **Task-Aware Encoder Control for Deep Video Compression**  
