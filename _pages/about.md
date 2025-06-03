@@ -45,6 +45,7 @@ Research
 <span style="font-size: smaller;">
 **Xingtong Ge**, Xin Zhang, Tongda Xu, Yi Zhang, Xinjie Zhang, Yan Wang, Jun Zhang  
 Preprint, 2025  
+[[paper](https://arxiv.org/abs/2506.00523)]
 [[project page](https://github.com/XingtongGe/SenseFlow)]
 </span>
 
@@ -52,14 +53,14 @@ Preprint, 2025
 <span style="font-size: smaller;">
 **Xingtong Ge**, Jixiang Luo, Xinjie Zhang, Tongda Xu, Guo Lu, Dailan He, Jing Geng, Yan Wang, Jun Zhang, Hongwei Qin  
 IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024  
-[[pdf](https://arxiv.org/pdf/2404.04848)]
+[[paper](https://arxiv.org/abs/2404.04848)]
 </span>
 
 **GaussianImage: 1000 FPS Image Representation and Compression by 2D Gaussian Splatting**  
 <span style="font-size: smaller;">
 Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, Guo Lu, Jing Geng, Jun Zhang  
 European Conference on Computer Vision (**ECCV**), 2024  
-[[pdf](https://arxiv.org/pdf/2403.08551)]
+[[paper](https://arxiv.org/abs/2403.08551)]
 [[code](https://github.com/Xinjie-Q/GaussianImage)]
 </span>
 
@@ -67,7 +68,7 @@ European Conference on Computer Vision (**ECCV**), 2024
 <span style="font-size: smaller;">
 Guo Lu, **Xingtong Ge\***, Tianxiong Zhong, Qiang Hu, Jing Geng  
 IEEE Transactions on Circuits and Systems for Video Technology (**TCSVT**), 2024 (arXiv, 2022)  
-[[pdf](https://ieeexplore.ieee.org/abstract/document/10632166/)]
+[[paper](https://ieeexplore.ieee.org/abstract/document/10632166/)]
 [[code](https://github.com/XingtongGe/PreprocessingICM)]
 </span>
 
@@ -76,7 +77,7 @@ IEEE Transactions on Circuits and Systems for Video Technology (**TCSVT**), 2024
 <span style="font-size: smaller;">
 Xinjie Zhang, Ren Yang, Dailan He, **Xingtong Ge**, Tongda Xu, Yan Wang, Hongwei Qin, Jun Zhang  
 IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024  
-[[pdf](https://arxiv.org/pdf/2402.18152)]
+[[paper](https://arxiv.org/abs/2402.18152)]
 </span>
 
 
