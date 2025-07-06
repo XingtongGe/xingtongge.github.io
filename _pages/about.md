@@ -10,7 +10,9 @@ redirect_from:
 
 Hi, there! 👋
 
-This is Xingtong Ge, an algorithm researcher at the Basemodel Group, SenseTime Technology.
+This is Xingtong Ge, an incoming PhD student at the Hong Kong University of Science and Technology. 
+<!-- Before that, I was an an algorithm researcher at SenseTime Research. -->
+<!-- This is Xingtong Ge, an algorithm researcher at the Basemodel Group, SenseTime Technology. -->
 
 I received my Master Degree in June 2024 and my Bachelor Degree of Computer Science from Beijing Institute of Technology in June 2022. 
 
@@ -23,6 +25,8 @@ In my life, I'm a fan of running 🏃 and football ⚽️, I'm also a big fan of
 
 Experience
 ------
+PhD student, the Hong Kong University of Science and Technology.  &nbsp;&nbsp;&nbsp;&nbsp; *Aug. 2025 - Present.*
+
 Algorithm Researcher, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Jul. 2024 - Present.*
 
 Research Intern, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Feb. 2024 - Jul. 2024*
