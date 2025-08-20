@@ -10,7 +10,7 @@ redirect_from:
 
 Hi, there! 👋
 
-This is Xingtong Ge, an incoming PhD student at the Hong Kong University of Science and Technology. 
+This is Xingtong Ge, a 1st-year PhD student at the Hong Kong University of Science and Technology. 
 <!-- Before that, I was an an algorithm researcher at SenseTime Research. -->
 <!-- This is Xingtong Ge, an algorithm researcher at the Basemodel Group, SenseTime Technology. -->
 
@@ -27,7 +27,7 @@ Experience
 ------
 PhD student, the Hong Kong University of Science and Technology.  &nbsp;&nbsp;&nbsp;&nbsp; *Aug. 2025 - Present.*
 
-Algorithm Researcher, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Jul. 2024 - Present.*
+Algorithm Researcher, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Jul. 2024 - Aug. 2025*
 
 Research Intern, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Feb. 2024 - Jul. 2024*
 
