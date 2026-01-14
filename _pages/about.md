@@ -28,8 +28,8 @@ Experience
 
 <table style="width: 100%; border-collapse: collapse; border: none; font-size: 1em;">
 <tr>
-<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, AI Startup.</td>
-<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Aug. 2025 - Present.</em></td>
+<!-- <td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, AI Startup.</td> -->
+<!-- <td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Aug. 2025 - Present.</em></td> -->
 </tr>
 <tr>
 <td style="padding: 0.5em 0; vertical-align: top; border: none;">PhD student, the Hong Kong University of Science and Technology.</td>
