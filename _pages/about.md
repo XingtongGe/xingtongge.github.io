@@ -14,7 +14,7 @@ This is Xingtong Ge, a 1st-year PhD student at the Hong Kong University of Scien
 <!-- Before that, I was an an algorithm researcher at SenseTime Research. -->
 <!-- This is Xingtong Ge, an algorithm researcher at the Basemodel Group, SenseTime Technology. -->
 
-I received my Master Degree in June 2024 and my Bachelor Degree of Computer Science from Beijing Institute of Technology in June 2022. 
+I received my Master Degree in Jun. 2024 and my Bachelor Degree of Computer Science from Beijing Institute of Technology in Jun. 2022. 
 
 I'm interested in AIGC, Diffusion Models, Video Compression, Gaussian Splatting, etc.
 
@@ -25,19 +25,41 @@ In my life, I'm a fan of running 🏃 and football ⚽️, I'm also a big fan of
 
 Experience
 ------
-PhD student, the Hong Kong University of Science and Technology.  &nbsp;&nbsp;&nbsp;&nbsp; *Aug. 2025 - Present.*
 
-Algorithm Researcher, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Jul. 2024 - Aug. 2025*
-
-Research Intern, Basemodel Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Feb. 2024 - Jul. 2024*
-
-Research Intern, ISP&Codec Group, SenseTime Research. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *May. 2023 - Jan. 2024*
-
-Master of Software Engineering, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp; *Sep. 2022 - Jun. 2024*
-
-Bachelor of Computer Science, Beijing Institute of Technology. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Sep. 2018 - Jun. 2022*
-
-High School Diploma, Shijiazhuang NO.2 Middle School (South Campus). &nbsp; *Sep. 2015 - Jun. 2018*
+<table style="width: 100%; border-collapse: collapse; border: none; font-size: 1em;">
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, AI Startup.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Aug. 2025 - Present.</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">PhD student, the Hong Kong University of Science and Technology.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Aug. 2025 - Present.</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Algorithm Researcher, Basemodel Group, SenseTime Research.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Jul. 2024 - Aug. 2025</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, Basemodel Group, SenseTime Research.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Feb. 2024 - Jul. 2024</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, ISP&Codec Group, SenseTime Research.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>May. 2023 - Jan. 2024</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Master of Software Engineering, Beijing Institute of Technology.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Sep. 2022 - Jun. 2024</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Bachelor of Computer Science, Beijing Institute of Technology.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Sep. 2018 - Jun. 2022</em></td>
+</tr>
+<tr>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">High School Diploma, Shijiazhuang NO.2 Middle School (South Campus).</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Sep. 2015 - Jun. 2018</em></td>
+</tr>
+</table>
 
 <!-- Like many other Jekyll-based GitHub Pages templates, Academic Pages makes you separate the website's content from its form. The content & metadata of your website are in structured markdown files, while various other files constitute the theme, specifying how to transform that content & metadata into HTML pages. You keep these various markdown (.md), YAML (.yml), HTML, and CSS files in a public GitHub repository. Each time you commit and push an update to the repository, the [GitHub pages](https://pages.github.com/) service creates static HTML pages based on these files, which are hosted on GitHub's servers free of charge.
 
