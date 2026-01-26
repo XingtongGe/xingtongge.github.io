@@ -70,9 +70,9 @@ Research
 **SenseFlow: Scaling Distribution Matching for Flow-based Text-to-Image Distillation**  
 <span style="font-size: smaller;">
 **Xingtong Ge**, Xin Zhang, Tongda Xu, Yi Zhang, Xinjie Zhang, Yan Wang, Jun Zhang  
-Preprint, 2025  
+The Fourteenth International Conference on Learning Representations (**ICLR**), 2026  
 [[paper](https://arxiv.org/abs/2506.00523)]
-[[project page](https://github.com/XingtongGe/SenseFlow)]
+[[code](https://github.com/XingtongGe/SenseFlow)]
 </span>
 
 **Task-Aware Encoder Control for Deep Video Compression**  
