@@ -67,6 +67,20 @@ Many of the features of dynamic content management systems (like Wordpress) can 
 
 Research
 ------
+**Neighbor GRPO: Contrastive ODE Policy Optimization Aligns Flow Models**  
+<span style="font-size: smaller;">
+Dailan He, Guanlin Feng, **Xingtong Ge**, Yazhe Niu, Yi Zhang, Bingqi Ma, Guanglu Song, Yu Liu, Hongsheng Li  
+Preprint, 2025  
+[[paper](https://arxiv.org/abs/2511.16955)]
+</span>
+
+**LinVideo: A Post-Training Framework towards O(n) Attention in Efficient Video Generation**  
+<span style="font-size: smaller;">
+Yushi Huang, **Xingtong Ge**, Ruihao Gong, Chengtao Lv, Jun Zhang  
+Preprint, 2025  
+[[paper](https://arxiv.org/abs/2510.08318)]
+</span>
+
 **SenseFlow: Scaling Distribution Matching for Flow-based Text-to-Image Distillation**  
 <span style="font-size: smaller;">
 **Xingtong Ge**, Xin Zhang, Tongda Xu, Yi Zhang, Xinjie Zhang, Yan Wang, Jun Zhang  
@@ -75,12 +89,7 @@ The Fourteenth International Conference on Learning Representations (**ICLR**), 
 [[code](https://github.com/XingtongGe/SenseFlow)]
 </span>
 
-**Task-Aware Encoder Control for Deep Video Compression**  
-<span style="font-size: smaller;">
-**Xingtong Ge**, Jixiang Luo, Xinjie Zhang, Tongda Xu, Guo Lu, Dailan He, Jing Geng, Yan Wang, Jun Zhang, Hongwei Qin  
-IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024  
-[[paper](https://arxiv.org/abs/2404.04848)]
-</span>
+
 
 **GaussianImage: 1000 FPS Image Representation and Compression by 2D Gaussian Splatting**  
 <span style="font-size: smaller;">
@@ -88,6 +97,13 @@ Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, 
 European Conference on Computer Vision (**ECCV**), 2024  
 [[paper](https://arxiv.org/abs/2403.08551)]
 [[code](https://github.com/Xinjie-Q/GaussianImage)]
+</span>
+
+**Task-Aware Encoder Control for Deep Video Compression**  
+<span style="font-size: smaller;">
+**Xingtong Ge**, Jixiang Luo, Xinjie Zhang, Tongda Xu, Guo Lu, Dailan He, Jing Geng, Yan Wang, Jun Zhang, Hongwei Qin  
+IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024  
+[[paper](https://arxiv.org/abs/2404.04848)]
 </span>
 
 **Preprocessing Enhanced Image Compression for Machine Vision**  
