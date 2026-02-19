@@ -93,7 +93,7 @@ The Fourteenth International Conference on Learning Representations (**ICLR**), 
 
 **GaussianImage: 1000 FPS Image Representation and Compression by 2D Gaussian Splatting**  
 <span style="font-size: smaller;">
-Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, Guo Lu, Jing Geng, Jun Zhang  
+Xinjie Zhang\*, **Xingtong Ge\***, Tongda Xu, Dailan He, Yan Wang, Hongwei Qin, Guo Lu, Jing Geng, Jun Zhang (\* Equal contribution)  
 European Conference on Computer Vision (**ECCV**), 2024  
 [[paper](https://arxiv.org/abs/2403.08551)]
 [[code](https://github.com/Xinjie-Q/GaussianImage)]
@@ -109,7 +109,8 @@ IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024
 **Preprocessing Enhanced Image Compression for Machine Vision**  
 <span style="font-size: smaller;">
 Guo Lu, **Xingtong Ge\***, Tianxiong Zhong, Qiang Hu, Jing Geng  
-IEEE Transactions on Circuits and Systems for Video Technology (**TCSVT**), 2024 (arXiv, 2022)  
+IEEE Transactions on Circuits and Systems for Video Technology (**TCSVT**), 2024 (arXiv, 2022).  
+Outstanding Bachelor's Thesis Award of Beijing Institute of Technology (BIT), 2022.  
 [[paper](https://ieeexplore.ieee.org/abstract/document/10632166/)]
 [[code](https://github.com/XingtongGe/PreprocessingICM)]
 </span>
