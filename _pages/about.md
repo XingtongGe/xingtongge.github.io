@@ -70,14 +70,14 @@ Research
 **Neighbor GRPO: Contrastive ODE Policy Optimization Aligns Flow Models**  
 <span style="font-size: smaller;">
 Dailan He, Guanlin Feng, **Xingtong Ge**, Yazhe Niu, Yi Zhang, Bingqi Ma, Guanglu Song, Yu Liu, Hongsheng Li  
-Preprint, 2025  
+IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2026  
 [[paper](https://arxiv.org/abs/2511.16955)]
 </span>
 
 **LinVideo: A Post-Training Framework towards O(n) Attention in Efficient Video Generation**  
 <span style="font-size: smaller;">
 Yushi Huang, **Xingtong Ge**, Ruihao Gong, Chengtao Lv, Jun Zhang  
-Preprint, 2025  
+IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2026  
 [[paper](https://arxiv.org/abs/2510.08318)]
 </span>
 
