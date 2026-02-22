@@ -7,7 +7,7 @@ redirect_from:
   - /resume
 ---
 
-[中文简历](/files/resume_zh.pdf)
+[Research CV (Feb 2026)](/files/Research_CV_XingtongGe_202602.pdf)
 
 <!-- 
 {% include base_path %}
