@@ -28,7 +28,7 @@ Experience
 
 <table style="width: 100%; border-collapse: collapse; border: none; font-size: 1em;">
 <tr>
-<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, Vivix AI.</td>
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, <a href="https://vivix.ai/">Vivix AI</a>.</td>
 <td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Sep. 2025 - Present.</em></td>
 </tr>
 <tr>
