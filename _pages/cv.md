@@ -7,7 +7,7 @@ redirect_from:
   - /resume
 ---
 
-[Research CV (Feb 2026)](/files/Research_CV_XingtongGe_202602.pdf)
+[Research CV (Apr 2026)](/files/Research_CV_XingtongGe_202604.pdf)
 
 <!-- 
 {% include base_path %}
