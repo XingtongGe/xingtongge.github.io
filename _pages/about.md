@@ -28,8 +28,8 @@ Experience
 
 <table style="width: 100%; border-collapse: collapse; border: none; font-size: 1em;">
 <tr>
-<!-- <td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, AI Startup.</td> -->
-<!-- <td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Aug. 2025 - Present.</em></td> -->
+<td style="padding: 0.5em 0; vertical-align: top; border: none;">Research Intern, Vivix AI.</td>
+<td style="text-align: right; padding: 0.5em 0; vertical-align: top; white-space: nowrap; border: none;"><em>Sep. 2025 - Present.</em></td>
 </tr>
 <tr>
 <td style="padding: 0.5em 0; vertical-align: top; border: none;">PhD student, the Hong Kong University of Science and Technology.</td>
@@ -67,6 +67,14 @@ Many of the features of dynamic content management systems (like Wordpress) can 
 
 Research
 ------
+**Salt: Self-Consistent Distribution Matching with Cache-Aware Training for Fast Video Generation**  
+<span style="font-size: smaller;">
+**Xingtong Ge**, Yi Zhang, Yushi Huang, Dailan He, Xiahong Wang, Bingqi Ma, Guanglu Song, Yu Liu, Jun Zhang  
+Preprint, 2026  
+[[paper](https://arxiv.org/abs/2604.03118)]
+[[code](https://github.com/XingtongGe/Salt)]
+</span>
+
 **Neighbor GRPO: Contrastive ODE Policy Optimization Aligns Flow Models**  
 <span style="font-size: smaller;">
 Dailan He, Guanlin Feng, **Xingtong Ge**, Yazhe Niu, Yi Zhang, Bingqi Ma, Guanglu Song, Yu Liu, Hongsheng Li  
