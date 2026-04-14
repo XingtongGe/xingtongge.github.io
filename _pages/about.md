@@ -95,6 +95,7 @@ IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2026
 The Fourteenth International Conference on Learning Representations (**ICLR**), 2026  
 [[paper](https://arxiv.org/abs/2506.00523)]
 [[code](https://github.com/XingtongGe/SenseFlow)]
+[[project page](https://xingtongge.github.io/SenseFlow-page/)]
 </span>
 
 
