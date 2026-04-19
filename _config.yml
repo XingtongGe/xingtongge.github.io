@@ -75,7 +75,7 @@ author:
   # Visitor map widget. After you've added your provider's embed snippet to
   # _includes/visitor-map.html (see that file for instructions), flip this
   # to true. Leave false to hide the widget entirely.
-  enable_visitor_map : true
+  enable_visitor_map : false
 
 
 # Site Settings
