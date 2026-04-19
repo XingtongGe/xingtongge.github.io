@@ -133,6 +133,12 @@ IEEE/CVF Computer Vision and Pattern Recognition (**CVPR**), 2024
 </span>
 
 
+Visitors
+------
+
+{% include visitor-map.html %}
+
+
 <!-- **Content-aware Masked Image Modeling Transformer for Stereo Image Compression**  
 <span style="font-size: smaller;">
 Xinjie Zhang, Shenyuan Gao, Zhening Liu, **Xingtong Ge**, Dailan He, Tongda Xu, Yan Wang, Jun Zhang

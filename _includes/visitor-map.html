@@ -1,0 +1,17 @@
+{% comment %}
+  Visitor map widget. Paste any provider's embed snippet inside the
+  .visitor-map__widget div below. Toggle via site.author.enable_visitor_map
+  in _config.yml.
+
+  Active providers (2026):
+    - ClustrMaps   https://clustrmaps.com/add   (current)
+    - Flag Counter https://www.flagcounter.com/ (no signup)
+{% endcomment %}
+
+{% if site.author.enable_visitor_map %}
+<div class="visitor-map">
+  <div class="visitor-map__widget">
+    <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=vE5X59luqHRGdsILYW27wbI3r9v0i4RkxKv7sSnKU2M"></script>
+  </div>
+</div>
+{% endif %}
