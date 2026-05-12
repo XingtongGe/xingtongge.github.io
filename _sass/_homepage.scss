@@ -1,0 +1,41 @@
+/* ── Entry list: used for Experience / Education ── */
+
+.entry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.2em 0;
+  gap: 1em;
+}
+
+.entry-role {
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.entry-date {
+  font-size: 0.88em;
+  color: #888;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-theme="dark"] {
+  .entry-date {
+    color: #9aa4b0;
+  }
+}
+
+@media (max-width: 600px) {
+  .entry {
+    flex-direction: column;
+    gap: 0.1em;
+  }
+}
