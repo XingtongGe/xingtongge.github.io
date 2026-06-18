@@ -71,9 +71,16 @@ Research
 **Salt: Self-Consistent Distribution Matching with Cache-Aware Training for Fast Video Generation**  
 <span style="font-size: smaller;">
 **Xingtong Ge**, Yi Zhang, Yushi Huang, Dailan He, Xiahong Wang, Bingqi Ma, Guanglu Song, Yu Liu, Jun Zhang  
-Preprint, 2026  
+European Conference on Computer Vision (**ECCV**), 2026  
 [[paper](https://arxiv.org/abs/2604.03118)]
 [[code](https://github.com/XingtongGe/Salt)]
+</span>
+
+**AR-CoPO: Align Autoregressive Video Generation with Contrastive Policy Optimization**  
+<span style="font-size: smaller;">
+Dailan He, Guanlin Feng, **Xingtong Ge**, Yi Zhang, Bingqi Ma, Guanglu Song, Yu Liu, Hongsheng Li  
+European Conference on Computer Vision (**ECCV**), 2026  
+[[paper](https://arxiv.org/abs/2603.17461)]
 </span>
 
 **Neighbor GRPO: Contrastive ODE Policy Optimization Aligns Flow Models**  
