@@ -74,7 +74,7 @@ Research
 European Conference on Computer Vision (**ECCV**), 2026  
 [[paper](https://arxiv.org/abs/2604.03118)]
 [[code](https://github.com/XingtongGe/Salt)]
-[[project page](https://xingtongge.github.io/Salt-page/)]
+[[project page](https://xingtongge.github.io/Salt/)]
 </span>
 
 **AR-CoPO: Align Autoregressive Video Generation with Contrastive Policy Optimization**  

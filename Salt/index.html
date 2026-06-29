@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salt: Self-Consistent Distribution Matching with Cache-Aware Training for Fast Video Generation</title>
+  <meta name="description" content="Salt - ECCV 2026. Self-Consistent Distribution Matching with Cache-Aware Training for fast few-step video generation.">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <style>
+    :root {
+      --ink: #111318;
+      --muted: #58606d;
+      --paper: #ffffff;
+      --soft: #f5f7fb;
+      --line: #dfe4ec;
+      --accent: #db3b3b;
+      --cool: #2378a7;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Noto Sans", "Inter", "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: var(--cool);
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #fbfcff 0%, #eef3f8 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-body {
+      padding: 3.5rem 1.5rem 2.5rem;
+    }
+
+    .publication-title {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: 2.35rem;
+      font-weight: 750;
+      line-height: 1.18;
+    }
+
+    .publication-venue {
+      margin-top: 1rem;
+    }
+
+    .publication-authors {
+      max-width: 980px;
+      margin: 1rem auto 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .author-block {
+      display: inline-block;
+      margin: 0 .22rem;
+    }
+
+    .affiliations {
+      margin-top: .6rem;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .publication-links {
+      margin-top: 1.25rem;
+    }
+
+    .publication-links .button {
+      margin: .25rem;
+      min-width: 112px;
+    }
+
+    .section {
+      padding: 2.7rem 1.5rem;
+    }
+
+    .section.is-soft {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section.is-darkband {
+      color: #f4f7fb;
+      background: #111318;
+    }
+
+    .container.narrow {
+      max-width: 860px;
+    }
+
+    .container.wide {
+      max-width: 1120px;
+    }
+
+    .section-title {
+      color: inherit;
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin: -.45rem 0 1.3rem;
+      line-height: 1.6;
+    }
+
+    .is-darkband .section-subtitle {
+      color: #aeb8c5;
+    }
+
+    .content p {
+      font-size: 1.04rem;
+      line-height: 1.72;
+    }
+
+    .media-frame {
+      overflow: hidden;
+      border: 1px solid rgba(17, 19, 24, .1);
+      border-radius: 8px;
+      background: #050609;
+      box-shadow: 0 12px 34px rgba(17, 19, 24, .1);
+    }
+
+    .teaser-img,
+    .paper-img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.55;
+      margin-top: .7rem;
+      text-align: center;
+    }
+
+    .is-darkband .caption {
+      color: #aeb8c5;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.3rem;
+    }
+
+    .highlight-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fff;
+    }
+
+    .highlight-card strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: .45rem;
+    }
+
+    .highlight-card p {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .method-panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(17, 19, 24, .08);
+      margin-top: 1rem;
+    }
+
+    .method-panel.compact {
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .video-case {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      margin-bottom: 1.35rem;
+      overflow: hidden;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .case-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcff;
+    }
+
+    .case-title {
+      font-weight: 700;
+    }
+
+    .case-prompt {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+      text-align: right;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .video-cell {
+      min-width: 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .video-cell:last-child {
+      border-right: 0;
+    }
+
+    .video-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      font-size: .86rem;
+      font-weight: 700;
+      color: #fff;
+      background: #2d3440;
+    }
+
+    .video-label.ours {
+      background: var(--accent);
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 832 / 480;
+      background: #000;
+      object-fit: cover;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fff;
+      text-align: center;
+    }
+
+    .subsection-title {
+      color: inherit;
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin: 2rem 0 .75rem;
+    }
+
+    .metric-value {
+      color: var(--cool);
+      font-size: 1.65rem;
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-top: .55rem;
+    }
+
+    .table-block {
+      margin-top: 1.6rem;
+    }
+
+    .table-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: .55rem;
+    }
+
+    .table-note {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.45;
+      margin-top: .55rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    table.results-table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      font-size: .88rem;
+      line-height: 1.35;
+    }
+
+    table.results-table th,
+    table.results-table td {
+      padding: .55rem .65rem;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    table.results-table th:first-child,
+    table.results-table td:first-child {
+      text-align: left;
+    }
+
+    table.results-table thead th {
+      color: #262b34;
+      background: #f4f6fa;
+      font-weight: 700;
+    }
+
+    table.results-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    table.results-table .group-row td {
+      color: #323946;
+      background: #eef1f6;
+      font-style: italic;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    table.results-table .ours-row td:first-child {
+      font-weight: 700;
+    }
+
+    table.results-table .best {
+      font-weight: 800;
+    }
+
+    table.results-table .second {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .bibtex-box {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+      padding: 1.1rem;
+      font-size: .9rem;
+    }
+
+    .bibtex-box pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    footer.footer {
+      padding: 2rem 1.5rem;
+      background: #111318;
+      color: #aeb8c5;
+    }
+
+    footer a {
+      color: #dce7f3;
+    }
+
+    @media (max-width: 900px) {
+      .publication-title {
+        font-size: 1.85rem;
+      }
+
+      .highlight-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-header {
+        display: block;
+      }
+
+      .case-prompt {
+        margin-top: .35rem;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-body {
+        padding-top: 2.4rem;
+      }
+
+      .publication-title {
+        font-size: 1.45rem;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-cell,
+      .video-cell:last-child {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .video-cell:last-child {
+        border-bottom: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="publication-title">
+          Salt: Self-Consistent Distribution Matching with Cache-Aware Training for Fast Video Generation
+        </h1>
+        <div class="publication-venue">
+          <span class="tag is-danger is-medium">ECCV 2026</span>
+        </div>
+        <div class="publication-authors">
+          <span class="author-block"><a href="https://xingtongge.github.io" target="_blank">Xingtong Ge</a><sup>1,2</sup>,</span>
+          <span class="author-block">Yi Zhang<sup>2</sup>,</span>
+          <span class="author-block">Yushi Huang<sup>1</sup>,</span>
+          <span class="author-block">Dailan He<sup>2</sup>,</span>
+          <span class="author-block">Xiahong Wang<sup>2</sup>,</span>
+          <span class="author-block">Bingqi Ma<sup>2</sup>,</span>
+          <span class="author-block">Guanglu Song<sup>2</sup>,</span>
+          <span class="author-block">Yu Liu<sup>2</sup>,</span>
+          <span class="author-block">Jun Zhang<sup>1</sup></span>
+        </div>
+        <div class="affiliations">
+          <sup>1</sup>Hong Kong University of Science and Technology &nbsp;
+          <sup>2</sup>Vivix Group Limited
+        </div>
+        <div class="publication-links">
+          <a class="button is-rounded is-dark" href="https://arxiv.org/abs/2604.03118" target="_blank">
+            <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+          </a>
+          <a class="button is-rounded is-dark" href="https://github.com/XingtongGe/Salt" target="_blank">
+            <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+          </a>
+          <a class="button is-rounded is-dark" href="#videos">
+            <span class="icon"><i class="fas fa-play"></i></span><span>Videos</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container wide">
+      <div class="media-frame">
+        <img class="teaser-img" src="static/images/teaser.jpg" alt="Qualitative results from Salt for fast video generation">
+      </div>
+      <p class="caption">
+        Salt improves few-step video generation quality and temporal stability for both non-autoregressive and autoregressive settings.
+      </p>
+    </div>
+  </section>
+
+  <section class="section is-soft">
+    <div class="container narrow">
+      <h2 class="section-title">Abstract</h2>
+      <div class="content">
+        <p>
+          Distilling video generation models to extremely low inference budgets is crucial for real-time deployment, yet remains difficult. Trajectory-style consistency distillation can become conservative under complex video dynamics, while Distribution Matching Distillation (DMD) produces sharper samples but lacks an explicit constraint on how denoising updates compose across timesteps. Salt addresses this gap with Self-Consistent Distribution Matching Distillation (SC-DMD), which regularizes the endpoint-consistent composition of consecutive denoising updates. For real-time autoregressive video generation, Salt further treats the KV cache as a quality-parameterized condition and introduces Cache-Distribution-Aware training with multi-step rollouts and cache-conditioned feature alignment. Across non-autoregressive and autoregressive backbones, Salt improves low-NFE video generation while adding no inference overhead.
+        </p>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight-card">
+          <strong>Compositional Regularization</strong>
+          <p>SC-DMD penalizes the semigroup defect between direct and composed denoising updates, improving multi-step rollout coherence.</p>
+        </div>
+        <div class="highlight-card">
+          <strong>Distribution Matching</strong>
+          <p>The method keeps DMD as the primary alignment signal, preserving sharpness and avoiding over-smoothed trajectory averages.</p>
+        </div>
+        <div class="highlight-card">
+          <strong>Cache-Aware Training</strong>
+          <p>Mixed-step autoregressive rollouts expose the model to varying cache quality and transfer high-step features to low-step outputs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container wide">
+      <h2 class="section-title has-text-centered">Method Overview</h2>
+      <p class="section-subtitle has-text-centered">
+        Salt combines SC-DMD for compositional few-step denoising with cache-aware mixed-step autoregressive training.
+      </p>
+
+      <h3 class="subsection-title has-text-centered">SC-DMD: Semigroup-Defect Regularization</h3>
+      <div class="method-panel compact">
+        <img class="paper-img" src="static/images/scdmd_overview.png" alt="Conceptual comparison between consistency distillation, shortcut models, DMD, and SC-DMD">
+      </div>
+      <p class="caption">
+        SC-DMD keeps distribution matching as the primary objective while adding a self-consistency regularizer on composed denoising updates.
+      </p>
+
+      <h3 class="subsection-title has-text-centered">Salt: Cache-Aware Mixed-Step Training</h3>
+      <div class="method-panel">
+        <img class="paper-img" src="static/images/salt_overview.png" alt="Overview of Salt cache-aware mixed-step autoregressive training">
+      </div>
+      <p class="caption">
+        Salt samples few-step trajectories, applies SC-DMD over denoising chunks, and aligns low-quality cache rollouts with high-quality references.
+      </p>
+    </div>
+  </section>
+
+  <section id="videos" class="section">
+    <div class="container wide">
+      <h2 class="section-title has-text-centered">Video Comparisons</h2>
+      <p class="section-subtitle has-text-centered">
+        Qualitative comparisons between the Causal Forcing baseline and Salt under the same prompts.
+      </p>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Case 1</div>
+          <div class="case-prompt">A couple in formal evening wear caught in a heavy downpour.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">Causal Forcing</div>
+            <video src="static/videos/umbrella_baseline.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">Salt</div>
+            <video src="static/videos/umbrella_ours.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Case 2</div>
+          <div class="case-prompt">A stage performance with a trumpet under dramatic lighting.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">Causal Forcing</div>
+            <video src="static/videos/stage_baseline.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">Salt</div>
+            <video src="static/videos/stage_ours.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Case 3</div>
+          <div class="case-prompt">A watercolor-style reading scene with consistent identity.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">Causal Forcing</div>
+            <video src="static/videos/reading_baseline.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">Salt</div>
+            <video src="static/videos/reading_ours.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Case 4</div>
+          <div class="case-prompt">Macro fruit rotation with water drops and stable object layout.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">Causal Forcing</div>
+            <video src="static/videos/plums_baseline.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">Salt</div>
+            <video src="static/videos/plums_ours.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section is-soft">
+    <div class="container wide">
+      <h2 class="section-title has-text-centered">Quantitative Results</h2>
+      <p class="section-subtitle has-text-centered">
+        Salt improves few-step video generation across image-to-video, short autoregressive, and long-horizon settings.
+      </p>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-value">93.90</div>
+          <div class="metric-label">Best I2V Score on Wan 2.1 I2V 14B, 4 NFE</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">85.08</div>
+          <div class="metric-label">VBench Total for Ours - Causal Forcing, 4 NFE</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">79.27</div>
+          <div class="metric-label">VBench-Long Total for Ours - LongLive, 30-second rollouts</div>
+        </div>
+      </div>
+
+      <div class="table-block">
+        <div class="table-title">Table 1. VBench-I2V Results on Wan 2.1 14B</div>
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>NFE</th>
+                <th>I2V Score</th>
+                <th>Quality</th>
+                <th>Backg. Consist.</th>
+                <th>Motion Smooth.</th>
+                <th>Dynamic Degree</th>
+                <th>Imaging Quality</th>
+                <th>Temporal Flicker</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="9">Consistency distillation</td></tr>
+              <tr><td>PCM</td><td>8</td><td>93.63</td><td>78.52</td><td class="best">97.34</td><td>98.24</td><td>30.98</td><td>70.42</td><td class="best">97.67</td></tr>
+              <tr class="group-row"><td colspan="9">Distribution matching</td></tr>
+              <tr><td>DMD</td><td>4</td><td>93.09</td><td>78.89</td><td>92.79</td><td>97.99</td><td>58.46</td><td>70.35</td><td>95.21</td></tr>
+              <tr><td>LightX2V</td><td>4</td><td>93.50</td><td class="second">80.92</td><td>95.87</td><td>97.89</td><td class="second">60.33</td><td>71.67</td><td>96.30</td></tr>
+              <tr class="ours-row"><td>Ours</td><td>4</td><td class="best">93.90</td><td>80.86</td><td class="second">95.97</td><td class="best">98.37</td><td>52.85</td><td class="best">72.16</td><td class="second">97.41</td></tr>
+              <tr class="ours-row"><td>Ours-alpha</td><td>4</td><td class="second">93.88</td><td class="best">81.71</td><td>95.46</td><td class="second">98.30</td><td class="best">68.13</td><td class="second">72.08</td><td>96.48</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Higher is better. Bold indicates best and underline indicates second best within the table.</p>
+      </div>
+
+      <div class="table-block">
+        <div class="table-title">Table 2. VBench Results for 5-Second Video Generation</div>
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>#Params</th>
+                <th>Resolution</th>
+                <th>NFE</th>
+                <th>Total</th>
+                <th>Quality</th>
+                <th>Semantic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="7">Diffusion models</td></tr>
+              <tr><td>rCM</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>82.73</td><td>83.65</td><td class="best">79.04</td></tr>
+              <tr><td>DMD</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>82.78</td><td>84.39</td><td>76.36</td></tr>
+              <tr><td>DMD</td><td>1.3B</td><td>832 x 480</td><td>2</td><td>82.41</td><td>83.49</td><td>78.06</td></tr>
+              <tr class="ours-row"><td>Ours (SC-DMD)</td><td>1.3B</td><td>832 x 480</td><td>4</td><td class="best">83.19</td><td class="best">84.42</td><td class="second">78.30</td></tr>
+              <tr class="ours-row"><td>Ours (SC-DMD)</td><td>1.3B</td><td>832 x 480</td><td>2</td><td>82.85</td><td>84.06</td><td>78.01</td></tr>
+              <tr class="group-row"><td colspan="7">Autoregressive models</td></tr>
+              <tr><td>CausVid</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>81.20</td><td>84.05</td><td>69.80</td></tr>
+              <tr><td>Self Forcing</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>84.20</td><td>84.74</td><td>82.05</td></tr>
+              <tr class="ours-row"><td>Ours - Self Forcing</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>84.47</td><td>85.27</td><td>81.28</td></tr>
+              <tr><td>LongLive</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>84.40</td><td>85.12</td><td>81.53</td></tr>
+              <tr class="ours-row"><td>Ours - LongLive</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>84.93</td><td>85.41</td><td class="best">83.00</td></tr>
+              <tr><td>Causal Forcing</td><td>1.3B</td><td>832 x 480</td><td>4</td><td>84.62</td><td>85.41</td><td>81.47</td></tr>
+              <tr class="ours-row"><td>Ours - Causal Forcing</td><td>1.3B</td><td>832 x 480</td><td>4</td><td class="best">85.08</td><td class="best">85.96</td><td>81.59</td></tr>
+              <tr class="ours-row"><td>Ours - Causal Forcing</td><td>1.3B</td><td>832 x 480</td><td>2</td><td>84.80</td><td>85.63</td><td>81.49</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-block">
+        <div class="table-title">Table 3. VBench-Long Results for 30-Second Autoregressive Generation</div>
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Total</th>
+                <th>Quality</th>
+                <th>Semantic</th>
+                <th>Subject Consist.</th>
+                <th>Temp. Flicker</th>
+                <th>Motion Smooth.</th>
+                <th>Dynamic Degree</th>
+                <th>Aesthetic Quality</th>
+                <th>Imaging Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="10">Causal Forcing family</td></tr>
+              <tr><td>Causal Forcing</td><td>78.11</td><td class="best">82.57</td><td>60.25</td><td>96.29</td><td>95.47</td><td>97.67</td><td class="best">76.95</td><td>56.50</td><td>71.12</td></tr>
+              <tr class="ours-row"><td>Ours - Causal Forcing</td><td class="best">78.28</td><td>82.15</td><td class="best">62.77</td><td class="best">97.16</td><td class="best">96.95</td><td class="best">98.32</td><td>54.02</td><td class="best">57.42</td><td>70.99</td></tr>
+              <tr class="group-row"><td colspan="10">LongLive family</td></tr>
+              <tr><td>LongLive</td><td>79.03</td><td>82.82</td><td>63.88</td><td class="best">97.36</td><td>96.62</td><td>98.16</td><td>63.45</td><td>58.26</td><td class="best">70.90</td></tr>
+              <tr class="ours-row"><td>Ours - LongLive</td><td class="best">79.27</td><td class="best">82.90</td><td class="best">64.74</td><td>97.28</td><td class="best">96.92</td><td class="best">98.29</td><td class="best">63.68</td><td class="best">58.35</td><td>70.07</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container wide">
+      <h2 class="section-title has-text-centered">Ablation Study</h2>
+      <p class="section-subtitle has-text-centered">
+        Ablations isolate the effect of self-consistency regularization and cache-aware autoregressive training.
+      </p>
+
+      <div class="table-block">
+        <div class="table-title">SC-DMD Ablation on Wan 2.1 T2V</div>
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Quality</th>
+                <th>Semantic</th>
+                <th>Total</th>
+                <th>Spatial Rel.</th>
+                <th>Multi-Objects</th>
+                <th>Object Class</th>
+                <th>Imaging Q.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>DMD-8</td><td>84.05</td><td>76.50</td><td>82.54</td><td>67.13</td><td>78.98</td><td>93.47</td><td>65.46</td></tr>
+              <tr><td>DMD-4</td><td>84.39</td><td>76.36</td><td>82.78</td><td>69.49</td><td>79.37</td><td>93.23</td><td>64.73</td></tr>
+              <tr class="ours-row"><td>SC-DMD (Ours)</td><td class="best">84.42</td><td class="best">78.30</td><td class="best">83.19</td><td class="best">72.32</td><td class="best">85.72</td><td class="best">95.16</td><td class="best">66.40</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-block">
+        <div class="table-title">Rebuttal Ablation: SC-DMD vs. Shortcut-Style Alternatives</div>
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Quality</th>
+                <th>Semantic</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="4">SC vs. SC-DMD at 4 NFEs</td></tr>
+              <tr><td>SCFM</td><td>79.47</td><td>70.63</td><td>77.70</td></tr>
+              <tr><td>Naive DMD + SCFM</td><td>77.17</td><td>66.64</td><td>75.06</td></tr>
+              <tr><td>DMD-4</td><td>84.39</td><td>76.36</td><td>82.78</td></tr>
+              <tr class="ours-row"><td>SC-DMD</td><td class="best">84.76</td><td>77.77</td><td class="best">83.36</td></tr>
+              <tr class="group-row"><td colspan="4">Sensitivity to lambda_SC</td></tr>
+              <tr><td>lambda_SC = 0.4</td><td>84.40</td><td>78.11</td><td>83.27</td></tr>
+              <tr><td>lambda_SC = 1.0</td><td>84.21</td><td class="best">78.29</td><td>83.02</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-block">
+        <div class="table-title">Autoregressive Training Component Ablation on Causal Forcing</div>
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>NFE</th>
+                <th>Quality</th>
+                <th>Semantic</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="5">4-NFE main ablation</td></tr>
+              <tr><td>Causal Forcing official baseline</td><td>4</td><td>85.41</td><td>81.47</td><td>84.62</td></tr>
+              <tr><td>CF + naive LSC</td><td>4</td><td>84.35</td><td>81.77</td><td>83.83</td></tr>
+              <tr><td>CF + mixed-step + LSC</td><td>4</td><td>85.91</td><td>81.48</td><td>85.02</td></tr>
+              <tr class="ours-row"><td>Ours (full)</td><td>4</td><td class="best">85.96</td><td class="best">81.59</td><td class="best">85.08</td></tr>
+              <tr class="group-row"><td colspan="5">2-NFE low-budget transfer</td></tr>
+              <tr><td>CF + mixed-step + LSC</td><td>2</td><td>85.62</td><td>80.65</td><td>84.63</td></tr>
+              <tr class="ours-row"><td>Ours (full)</td><td>2</td><td class="best">85.63</td><td class="best">81.49</td><td class="best">84.80</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 class="subsection-title has-text-centered">Self-Consistency Across Euler Steps</h3>
+      <p class="section-subtitle has-text-centered">
+        SC-DMD keeps the generated structure more stable as Euler sampling uses 2, 4, and 8 denoising steps.
+      </p>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Euler 2-Step</div>
+          <div class="case-prompt">DMD vs SC-DMD under the same prompt and sampler.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">DMD</div>
+            <video src="static/videos/sc_euler_2step_dmd.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">SC-DMD</div>
+            <video src="static/videos/sc_euler_2step_scdmd.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Euler 4-Step</div>
+          <div class="case-prompt">Compositional regularization reduces structure drift in few-step rollouts.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">DMD</div>
+            <video src="static/videos/sc_euler_4step_dmd.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">SC-DMD</div>
+            <video src="static/videos/sc_euler_4step_scdmd.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-case">
+        <div class="case-header">
+          <div class="case-title">Euler 8-Step</div>
+          <div class="case-prompt">SC-DMD maintains cleaner visual details under longer composed denoising trajectories.</div>
+        </div>
+        <div class="video-grid">
+          <div class="video-cell">
+            <div class="video-label">DMD</div>
+            <video src="static/videos/sc_euler_8step_dmd.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+          <div class="video-cell">
+            <div class="video-label ours">SC-DMD</div>
+            <video src="static/videos/sc_euler_8step_scdmd.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <h2 class="section-title">BibTeX</h2>
+      <div class="bibtex-box">
+<pre>@article{ge2026salt,
+  title={Salt: Self-consistent distribution matching with cache-aware training for fast video generation},
+  author={Ge, Xingtong and Zhang, Yi and Huang, Yushi and He, Dailan and Wang, Xiahong and Ma, Bingqi and Song, Guanglu and Liu, Yu and Zhang, Jun},
+  journal={arXiv preprint arXiv:2604.03118},
+  year={2026}
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container has-text-centered">
+      <p>
+        Project page for <a href="https://github.com/XingtongGe/Salt" target="_blank">Salt</a>.
+        Template adapted from academic project page layouts including Nerfies-style pages.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
