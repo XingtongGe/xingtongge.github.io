@@ -10,13 +10,15 @@ redirect_from:
 
 Hi, there! 👋
 
-This is Xingtong Ge, a 1st-year PhD student at the Hong Kong University of Science and Technology. 
-<!-- Before that, I was an an algorithm researcher at SenseTime Research. -->
-<!-- This is Xingtong Ge, an algorithm researcher at the Basemodel Group, SenseTime Technology. -->
+This is Xingtong Ge, a PhD student in Electronic & Computer Engineering at the Hong Kong University of Science and Technology since Fall 2025.
+Before joining HKUST, I received my M.S. in Software Engineering (2024) and B.S. in Computer Science (2022) from Beijing Institute of Technology.
+I'm currently a research intern at [Vivix AI](https://vivix.ai/), and previously worked as an algorithm researcher at the Base Model Group, SenseTime Research.
 
-I received my Master Degree in Jun. 2024 and my Bachelor Degree of Computer Science from Beijing Institute of Technology in Jun. 2022. 
+My research focuses on **visual generation and visual representation**, with current interests in:
 
-I'm interested in AIGC, Diffusion Models, Video Compression, Gaussian Splatting, etc.
+- **Diffusion / Flow Distillation** — distribution matching and cache-aware training for fast image and video generation.
+- **Post-training & Alignment** — preference optimization for diffusion, flow, and autoregressive video models.
+- **Neural Representation & Compression** — image/video compression, Gaussian splatting, and task-aware coding.
 
 📧: xingtong.ge@gmail.com. Feel free to contact me if you're interested in my research.
 
