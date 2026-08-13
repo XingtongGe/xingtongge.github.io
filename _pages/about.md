@@ -10,13 +10,11 @@ redirect_from:
 
 Hi, there! 👋
 
-This is Xingtong Ge, a PhD student in Electronic & Computer Engineering at the Hong Kong University of Science and Technology since Fall 2025.
-Before joining HKUST, I received my M.S. in Software Engineering (2024) and B.S. in Computer Science (2022) from Beijing Institute of Technology.
-I'm currently a research intern at [Vivix AI](https://vivix.ai/), and previously worked as an algorithm researcher at the Base Model Group, SenseTime Research.
+I am Xingtong Ge, a Ph.D. student in Electronic and Computer Engineering at the Hong Kong University of Science and Technology (HKUST) since Fall 2025. Prior to joining HKUST, I received my M.S. in Software Engineering (2024) and B.S. in Computer Science (2022) from Beijing Institute of Technology.
 
-My research focuses on visual generation and visual representation, with current interests in:
+My research focuses on visual generation and representation learning, with particular interests in:
 
-- Diffusion / Flow Distillation — distribution matching and cache-aware training for fast image and video generation.
+- Diffusion / Flow Distillation — distribution matching and context-aware training for fast image and video generation.
 - Post-training & Alignment — preference optimization for diffusion, flow, and autoregressive video models.
 - Neural Representation & Compression — image/video compression, Gaussian splatting, and task-aware coding.
 
