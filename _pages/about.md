@@ -27,8 +27,12 @@ Experience
 
 <ul class="entry-list">
   <li class="entry">
+    <span class="entry-role">Research Intern, <a href="https://hunyuan.tencent.com/">Tencent Hunyuan</a>.</span>
+    <span class="entry-date">Aug. 2026 - Present.</span>
+  </li>
+  <li class="entry">
     <span class="entry-role">Research Intern, <a href="https://vivix.ai/">Vivix AI</a>.</span>
-    <span class="entry-date">Sep. 2025 - Present.</span>
+    <span class="entry-date">Sep. 2025 - Aug. 2026</span>
   </li>
   <li class="entry">
     <span class="entry-role">Algorithm Researcher, Basemodel Group, SenseTime Research.</span>
