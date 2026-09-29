@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salt++: Context-Aligned Post-Training for Few-Step Streaming Multimodal Generation</title>
+  <meta name="description" content="Salt++ - context-aligned post-training for few-step streaming audio-video generation.">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;&#129474;&lt;/text&gt;&lt;/svg&gt;">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <style>
+    :root {
+      --ink: #111318;
+      --muted: #58606d;
+      --paper: #ffffff;
+      --soft: #f5f7fb;
+      --line: #dfe4ec;
+      --accent: #db3b3b;
+      --cool: #2378a7;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Noto Sans", "Inter", "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: var(--cool);
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #fbfcff 0%, #eef3f8 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-body {
+      padding: 3.5rem 1.5rem 2.5rem;
+    }
+
+    .publication-title {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: 2.35rem;
+      font-weight: 750;
+      line-height: 1.18;
+    }
+
+    .publication-venue {
+      margin-top: 1rem;
+    }
+
+    .publication-authors {
+      max-width: 980px;
+      margin: 1rem auto 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .author-block {
+      display: inline-block;
+      margin: 0 .22rem;
+    }
+
+    .affiliations {
+      margin-top: .6rem;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .publication-links {
+      margin-top: 1.25rem;
+    }
+
+    .publication-links .button {
+      margin: .25rem;
+      min-width: 112px;
+    }
+
+    .section {
+      padding: 2.7rem 1.5rem;
+    }
+
+    .section.is-soft {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section.is-darkband {
+      color: #f4f7fb;
+      background: #111318;
+    }
+
+    .container.narrow {
+      max-width: 860px;
+    }
+
+    .container.wide {
+      max-width: 1120px;
+    }
+
+    .section-title {
+      color: inherit;
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin: -.45rem 0 1.3rem;
+      line-height: 1.6;
+    }
+
+    .is-darkband .section-subtitle {
+      color: #aeb8c5;
+    }
+
+    .content p {
+      font-size: 1.04rem;
+      line-height: 1.72;
+    }
+
+    .media-frame {
+      overflow: hidden;
+      border: 1px solid rgba(17, 19, 24, .1);
+      border-radius: 8px;
+      background: #050609;
+      box-shadow: 0 12px 34px rgba(17, 19, 24, .1);
+    }
+
+    .teaser-img,
+    .paper-img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.55;
+      margin-top: .7rem;
+      text-align: center;
+    }
+
+    .is-darkband .caption {
+      color: #aeb8c5;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.3rem;
+    }
+
+    .highlight-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fff;
+    }
+
+    .highlight-card strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: .45rem;
+    }
+
+    .highlight-card p {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .method-panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(17, 19, 24, .08);
+      margin-top: 1rem;
+    }
+
+    .method-panel.compact {
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .video-case {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      margin-bottom: 1.35rem;
+      overflow: hidden;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .case-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcff;
+    }
+
+    .case-title {
+      font-weight: 700;
+    }
+
+    .case-prompt {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+      text-align: right;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .video-cell {
+      min-width: 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .video-cell:last-child {
+      border-right: 0;
+    }
+
+    .video-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      font-size: .86rem;
+      font-weight: 700;
+      color: #fff;
+      background: #2d3440;
+    }
+
+    .video-label.ours {
+      background: var(--accent);
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 832 / 480;
+      background: #000;
+      object-fit: cover;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fff;
+      text-align: center;
+    }
+
+    .subsection-title {
+      color: inherit;
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin: 2rem 0 .75rem;
+    }
+
+    .metric-value {
+      color: var(--cool);
+      font-size: 1.65rem;
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-top: .55rem;
+    }
+
+    .table-block {
+      margin-top: 1.6rem;
+    }
+
+    .table-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: .55rem;
+    }
+
+    .table-note {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.45;
+      margin-top: .55rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    table.results-table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      font-size: .88rem;
+      line-height: 1.35;
+    }
+
+    table.results-table th,
+    table.results-table td {
+      padding: .55rem .65rem;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    table.results-table th:first-child,
+    table.results-table td:first-child {
+      text-align: left;
+    }
+
+    table.results-table thead th {
+      color: #262b34;
+      background: #f4f6fa;
+      font-weight: 700;
+    }
+
+    table.results-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    table.results-table .group-row td {
+      color: #323946;
+      background: #eef1f6;
+      font-style: italic;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    table.results-table .ours-row td:first-child {
+      font-weight: 700;
+    }
+
+    table.results-table .best {
+      font-weight: 800;
+    }
+
+    table.results-table .second {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .bibtex-box {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+      padding: 1.1rem;
+      font-size: .9rem;
+    }
+
+    .bibtex-box pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    footer.footer {
+      padding: 2rem 1.5rem;
+      background: #111318;
+      color: #aeb8c5;
+    }
+
+    footer a {
+      color: #dce7f3;
+    }
+
+    @media (max-width: 900px) {
+      .publication-title {
+        font-size: 1.85rem;
+      }
+
+      .highlight-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-header {
+        display: block;
+      }
+
+      .case-prompt {
+        margin-top: .35rem;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-body {
+        padding-top: 2.4rem;
+      }
+
+      .publication-title {
+        font-size: 1.45rem;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-cell,
+      .video-cell:last-child {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .video-cell:last-child {
+        border-bottom: 0;
+      }
+    }
+  
+    .video-grid.quad {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .video-grid.duo {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .video-note {
+      color: var(--muted);
+      font-size: .8rem;
+      padding: .1rem .1rem .35rem;
+    }
+
+    .case-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin: 0 0 1.4rem;
+    }
+
+    .case-tab {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #4c5561;
+      border-radius: 999px;
+      padding: .42rem .95rem;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .case-tab.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .case-bar {
+      display: flex;
+      gap: .45rem;
+      margin: .1rem 0 .9rem;
+    }
+
+    .case-bar button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #4c5561;
+      border-radius: 6px;
+      padding: .38rem .8rem;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .case-bar button:hover {
+      border-color: var(--cool);
+      color: var(--cool);
+    }
+
+    .audio-hint {
+      border-left: 3px solid var(--cool);
+      background: #2378a70d;
+      padding: .7rem .95rem;
+      font-size: .92rem;
+      color: #3d4650;
+      margin: 0 auto 1.6rem;
+      max-width: 880px;
+    }
+
+    .fig-figure {
+      margin: 0 0 2.2rem;
+    }
+
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topnav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .5rem 1.5rem;
+    }
+
+    .topnav-brand {
+      color: var(--ink);
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .topnav-links {
+      display: flex;
+      gap: .15rem;
+      margin-left: auto;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .topnav-links::-webkit-scrollbar { display: none; }
+
+    .topnav-links a {
+      color: #4c5561;
+      font-size: .84rem;
+      font-weight: 600;
+      padding: .32rem .72rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .topnav-links a:hover { color: var(--ink); background: #eef1f5; }
+
+    .topnav-links .num {
+      color: #9aa3ae;
+      margin-right: .3rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .topnav-links a.active { background: var(--ink); color: #fff; }
+    .topnav-links a.active .num { color: rgba(255, 255, 255, .6); }
+
+    section[id] { scroll-margin-top: 52px; }
+
+    .section-kicker {
+      color: var(--cool);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+
+    .has-text-centered > .section-kicker,
+    .section-kicker.has-text-centered { text-align: center; }
+
+    .showcase { padding-top: 2.2rem; padding-bottom: 2.4rem; }
+
+    .showcase-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #000;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+    }
+
+    .slide { display: none; }
+    .slide.active { display: block; }
+
+    .slide-media { display: grid; gap: 2px; background: #1c2029; cursor: pointer; }
+    .slide-media.duo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .slide-media.quad { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .slide-media.quad .clip-tag {
+      position: static;
+      justify-content: center;
+      border-radius: 0;
+      padding: .4rem .5rem;
+      background: #2d3440;
+      font-size: .74rem;
+      white-space: nowrap;
+      overflow: hidden;
+      order: -1;
+    }
+
+    .slide-media.quad .slide-clip { display: flex; flex-direction: column; }
+    .slide-media.quad .slide-clip.ours .clip-tag { background: var(--accent); }
+    .slide-media.quad .listen span { display: none; }
+
+    .slide-clip { position: relative; min-width: 0; }
+    .slide-clip video { aspect-ratio: 1664 / 960; }
+
+    .clip-tag {
+      position: absolute;
+      left: .7rem;
+      top: .7rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .28rem .6rem;
+      border-radius: 6px;
+      background: rgba(17, 19, 24, .72);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .slide-clip.ours .clip-tag { background: var(--accent); }
+
+    .listen {
+      border: 1px solid rgba(255, 255, 255, .45);
+      background: transparent;
+      color: #fff;
+      border-radius: 999px;
+      padding: .05rem .5rem;
+      font-size: .72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .slide-clip.audio-on .listen { background: #fff; color: var(--ink); border-color: #fff; }
+
+    .showcase-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.4rem;
+      height: 2.4rem;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .16);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .showcase-arrow:hover { background: rgba(255, 255, 255, .32); }
+    .showcase-arrow.prev { left: .7rem; }
+    .showcase-arrow.next { right: .7rem; }
+
+    .showcase-bar {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.4rem;
+      margin-top: 1.1rem;
+    }
+
+    .slide-count {
+      color: #7f8a98;
+      font-size: .9rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      padding-top: .1rem;
+    }
+
+    .slide-count b { color: #fff; font-size: 1.25rem; }
+
+    .slide-text { flex: 1; min-width: 0; }
+    .slide-text h3 { color: #fff; font-size: 1.12rem; font-weight: 700; margin-bottom: .25rem; }
+    .slide-text p { color: #aeb8c5; font-size: .9rem; line-height: 1.5; }
+
+    .showcase-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .6rem;
+    }
+
+    .sound-btn {
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      font-size: .85rem;
+      font-weight: 700;
+      padding: .45rem 1rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .sound-btn.on { background: var(--accent); color: #fff; }
+
+    .dots { display: flex; gap: .4rem; }
+
+    .dots button {
+      width: .55rem;
+      height: .55rem;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: #4a5260;
+      cursor: pointer;
+    }
+
+    .dots button.active { width: 1.5rem; background: #fff; }
+
+    @media (max-width: 900px) {
+      .video-grid.quad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      .topnav-brand { display: none; }
+      .topnav-links { margin-left: 0; }
+      .slide-media.duo { grid-template-columns: 1fr; }
+      .slide-media.quad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .slide-media.quad .clip-tag { padding: .2rem .3rem; font-size: .56rem; gap: .25rem; }
+      .slide-media.quad .listen { padding: 0 .3rem; font-size: .6rem; }
+      .slide-media.quad .listen span { display: none; }
+      .showcase-bar { flex-direction: column; gap: .6rem; }
+      .showcase-controls { flex-direction: row; align-items: center; width: 100%;
+                           justify-content: space-between; }
+    }
+</style>
+</head>
+<body>
+
+  <nav class="topnav"><div class="topnav-inner"><a class="topnav-brand" href="#">&#129474; Salt++</a><div class="topnav-links"><a href="#abstract"><span class="num">01</span>Overview</a><a href="#method"><span class="num">02</span>Method</a><a href="#videos"><span class="num">03</span>Videos</a><a href="#results"><span class="num">04</span>Results</a><a href="#ablations"><span class="num">05</span>Ablations</a></div></div></nav>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="publication-title">🧂 Salt++: Context-Aligned Post-Training for Few-Step Streaming Multimodal Generation</h1>
+        <div class="publication-venue">
+          <span class="tag is-dark is-medium">Preprint</span>
+        </div>
+        <div class="publication-authors"><span class="author-block"><a href="https://xingtongge.github.io" target="_blank">Xingtong Ge</a><sup>1,2</sup>,</span><span class="author-block"><a href="https://yutongwang1012.github.io/" target="_blank">Yutong Wang</a><sup>3</sup>,</span><span class="author-block"><a href="https://scholar.google.com/citations?hl=zh-CN&user=ZnKjHG0AAAAJ" target="_blank">Lunjie Zhu</a><sup>1</sup>,</span><span class="author-block"><a href="https://edapinenut.github.io/" target="_blank">Haitao Lin</a><sup>4</sup>,</span><span class="author-block"><a href="https://github.com/rslinfy" target="_blank">Fangyu Lin</a><sup>1</sup>,</span><br><span class="author-block"><a href="https://harahan.github.io/" target="_blank">Yushi Huang</a><sup>1</sup>,</span><span class="author-block">Xin Zhang<sup>2</sup>,</span><span class="author-block"><a href="https://zhangyi-3.github.io" target="_blank">Yi Zhang</a><sup>2&dagger;</sup>,</span><span class="author-block"><a href="https://liuyu.us/" target="_blank">Yu Liu</a><sup>2</sup>,</span><span class="author-block"><a href="https://eejzhang.people.ust.hk/" target="_blank">Jun Zhang</a><sup>1&Dagger;</sup></span></div>
+        <div class="affiliations"><sup>1</sup>The Hong Kong University of Science and Technology &nbsp; <sup>2</sup>Vivix Group Limited &nbsp; <sup>3</sup>The University of Sydney &nbsp; <sup>4</sup>Westlake University</div>
+        <div class="affiliations">&dagger; Project Lead &nbsp;&middot;&nbsp; &Dagger; Corresponding Author &nbsp;&middot;&nbsp; <a href="mailto:xingtong.ge@gmail.com">xingtong.ge@gmail.com</a></div>
+        <div class="publication-links"><a class="button is-rounded is-dark is-static"><span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv (soon)</span></a><a class="button is-rounded is-dark" href="https://github.com/XingtongGe/Saltpp" target="_blank"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a><a class="button is-rounded is-dark" href="#videos"><span class="icon"><i class="fas fa-play"></i></span><span>Videos with audio</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section is-darkband showcase" id="showcase"><div class="container wide"><div class="showcase-frame"><div class="slide active" data-title="Fast motion at the same four-step budget" data-caption="Same prompt and seed. LTX-2 is bidirectional at 40 steps; OmniForcing and both Salt++ routes are causal at four steps. Tap a panel's &#9835; chip to switch which soundtrack you hear."><div class="slide-media quad"><div class="slide-clip"><video src="static/videos/main480-2/ltx_2_base.mp4" poster="static/videos/main480-2/ltx_2_base.jpg" muted playsinline preload="auto"></video><div class="clip-tag">LTX-2 &middot; bidirectional &middot; 40 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div><div class="slide-clip"><video src="static/videos/main480-2/omniforcing.mp4" poster="static/videos/main480-2/omniforcing.jpg" muted playsinline preload="auto"></video><div class="clip-tag">OmniForcing &middot; causal &middot; 4 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div><div class="slide-clip"><video src="static/videos/main480-2/salt_tf_dcm_route.mp4" poster="static/videos/main480-2/salt_tf_dcm_route.jpg" muted playsinline preload="auto"></video><div class="clip-tag">Salt++ (TF-dCM route) &middot; 4 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div><div class="slide-clip ours audio-on"><video src="static/videos/main480-2/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-2/salt_ar_ar_dmd_route.jpg" muted playsinline preload="auto" data-lead></video><div class="clip-tag">Salt++ (AR&ndash;AR DMD route) &middot; 4 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div></div></div><div class="slide" data-title="Against the bidirectional foundation model and the causal baseline at 480p" data-caption="Same prompt and seed. LTX-2 is bidirectional at 40 steps; OmniForcing and both Salt++ routes are causal at four steps."><div class="slide-media quad"><div class="slide-clip"><video src="static/videos/main480-0/ltx_2_base.mp4" poster="static/videos/main480-0/ltx_2_base.jpg" muted playsinline preload="none"></video><div class="clip-tag">LTX-2 &middot; bidirectional &middot; 40 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div><div class="slide-clip"><video src="static/videos/main480-0/omniforcing.mp4" poster="static/videos/main480-0/omniforcing.jpg" muted playsinline preload="none"></video><div class="clip-tag">OmniForcing &middot; causal &middot; 4 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div><div class="slide-clip"><video src="static/videos/main480-0/salt_tf_dcm_route.mp4" poster="static/videos/main480-0/salt_tf_dcm_route.jpg" muted playsinline preload="none"></video><div class="clip-tag">Salt++ (TF-dCM route) &middot; 4 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div><div class="slide-clip ours audio-on"><video src="static/videos/main480-0/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-0/salt_ar_ar_dmd_route.jpg" muted playsinline preload="none" data-lead></video><div class="clip-tag">Salt++ (AR&ndash;AR DMD route) &middot; 4 steps<button class="listen" type="button">&#9835;<span> Audio</span></button></div></div></div></div><button class="showcase-arrow prev" type="button" aria-label="Previous">&#8249;</button><button class="showcase-arrow next" type="button" aria-label="Next">&#8250;</button></div><div class="showcase-bar"><div class="slide-count"><b>01</b> / 02</div><div class="slide-text"><h3>Fast motion at the same four-step budget</h3><p>Same prompt and seed. LTX-2 is bidirectional at 40 steps; OmniForcing and both Salt++ routes are causal at four steps. Tap a panel's &#9835; chip to switch which soundtrack you hear.</p></div><div class="showcase-controls"><button class="sound-btn" type="button">&#128264; Turn sound on</button><div class="dots"><button type="button" class="active" aria-label="Slide 1"></button><button type="button" aria-label="Slide 2"></button></div></div></div></div></section>
+
+  <section id="abstract" class="section is-soft">
+    <div class="container narrow">
+      <div class="section-kicker">01 / Overview</div>
+      <h2 class="section-title">Abstract</h2>
+      <div class="content"><p>Few-step streaming audio&ndash;video generation requires both causal modeling
+and step distillation. Teacher forcing pairs clean history with a noisy target, but shapes
+predictive contextual representations only indirectly through velocity prediction. Meanwhile,
+directly reusing bidirectional score models in causal Distribution Matching Distillation (DMD)
+creates a mismatch between generation and scoring contexts. We address these challenges with
+<strong>Salt++</strong>, a two-stage post-training framework comprising Causal Self-Flow (CSF)
+and context-aligned autoregressive DMD. CSF exploits contextual information asymmetry by varying
+the history while keeping the noisy target fixed: a noise-mixed-history student predicts
+intermediate representations from a clean-history exponential-moving-average teacher. Together
+with flow matching, this self-supervised signal encourages the student to extract semantic
+information useful for next-block prediction and improves cross-modal alignment. Context-aligned
+AR DMD shares the causal mask and prefix across generator sampling, fake-score training, and
+real-score evaluation to match generated and reference distributions under a block-conditional
+KL objective. With calibrated teacher guidance, it performs clean-prefix few-step distillation
+and then adapts to generated histories without switching objectives or requiring separate
+consistency distillation. At 480p, Salt++ improves visual and motion quality by 57% and 45% over
+OmniForcing on JavisBench under the same 4-step causal setting. A scale-wise post-training stage
+further extends Salt++ to 4-step 1664&times;960 generation, outperforming bidirectional LTX-2 on
+six of seven reported metrics.</p></div>
+      <div class="highlight-grid"><div class="highlight-card"><strong>Joint audio and video</strong><p>A single causal generator produces temporally aligned video and audio blocks, so every clip below carries its own generated soundtrack.</p></div><div class="highlight-card"><strong>Causal Self-Flow</strong><p>Varying only the history while holding the noisy target fixed turns information asymmetry into a representation-learning signal for the autoregressive teacher.</p></div><div class="highlight-card"><strong>Context-aligned AR DMD</strong><p>Generator sampling and both score models share one causal mask and prefix, so distribution matching alone suffices &mdash; no separate consistency-distillation stage.</p></div></div>
+    </div>
+  </section>
+
+  <section id="method" class="section">
+    <div class="container wide">
+      <div class="section-kicker has-text-centered">02 / Method</div>
+      <h2 class="section-title has-text-centered">Method</h2>
+      <p class="section-subtitle has-text-centered">
+        Salt++ keeps one autoregressive DMD objective throughout post-training and only shifts
+        its conditioning from clean context to generated rollout.
+      </p>
+
+      <figure class="fig-figure">
+        <div class="method-panel compact">
+          <img class="paper-img" src="static/images/recipe.png"
+               alt="Comparison with recent causal post-training recipes">
+        </div>
+        <p class="caption">
+          Prior recipes switch objectives between stages and score the causal generator with
+          bidirectional models. Salt++ keeps a single AR DMD objective; a further scale-wise
+          stage reaches 1664&times;960 with four generator calls.
+        </p>
+      </figure>
+
+      <figure class="fig-figure">
+        <div class="method-panel compact">
+          <img class="paper-img" src="static/images/context.png"
+               alt="Two roles of causal context in post-training">
+        </div>
+        <p class="caption">
+          <strong>Two roles of causal context.</strong> Left: under teacher forcing the clean
+          history carries information the flow objective never supervises directly; Causal
+          Self-Flow turns that asymmetry into representation supervision. Right: each model's
+          visibility over block positions &mdash; context alignment makes the three masks identical.
+        </p>
+      </figure>
+
+      <figure class="fig-figure">
+        <div class="method-panel compact">
+          <img class="paper-img" src="static/images/score_contexts.png"
+               alt="Score-context configurations in causal DMD">
+        </div>
+        <p class="caption">
+          <strong>Score&ndash;context configurations.</strong> A bidirectional score reads the whole
+          clip at one noise level; an autoregressive score reads the clean prefix without future
+          access. Only AR&ndash;AR scores each block under the context that produced it.
+        </p>
+      </figure>
+
+      <figure class="fig-figure">
+        <div class="method-panel compact">
+          <img class="paper-img" src="static/images/csf_curves.png"
+               alt="Cross-modal alignment during AR teacher training">
+        </div>
+        <p class="caption">
+          Causal Self-Flow develops stronger audio&ndash;visual and audio&ndash;text alignment than
+          clean teacher forcing throughout AR teacher training.
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <section id="videos" class="section is-soft">
+    <div class="container wide">
+      <div class="section-kicker has-text-centered">03 / Videos</div>
+      <h2 class="section-title has-text-centered">Generated results</h2>
+      <p class="audio-hint">
+        <strong>Audio and video are generated jointly.</strong> Every clip carries its own
+        generated soundtrack, so audio&ndash;visual synchrony can be judged directly. Press
+        <em>Unmute</em>, or <em>Play together</em> to start a whole row in sync.
+      </p>
+      <figure class="fig-figure">
+        <div class="media-frame">
+          <img class="teaser-img" src="static/images/teaser_480p.png"
+               alt="480p qualitative comparison between LTX-2 Base, OmniForcing and both Salt++ routes">
+        </div>
+        <p class="caption">
+          Four-step streaming audio&ndash;video generation at 480p. Salt++ retains scene and facial
+          detail that the causal baseline loses at the same step budget.
+        </p>
+      </figure>
+      <div class="case-group" data-group="main480"><h3 class="subsection-title">480p streaming generation</h3><p class="section-subtitle">Four-step causal generation against the bidirectional foundation model and the causal baseline, under matched prompts and seeds.</p><div class="case-tabs"><button class="case-tab active" data-case="main480-0">Wellness host</button><button class="case-tab" data-case="main480-1">Studio speaker</button><button class="case-tab" data-case="main480-2">Race car</button><button class="case-tab" data-case="main480-3">Cat at a window</button><button class="case-tab" data-case="main480-4">Bald eagle</button><button class="case-tab" data-case="main480-5">Rocky island</button><button class="case-tab" data-case="main480-6">Coast</button></div><div class="video-case" id="main480-0"><div class="case-header"><div class="case-title">Wellness host <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 8</span></div><div class="case-prompt">[Shot 1][0.0s-5.0s]: A calm wellness-channel video in a sunlit living room. A Caucasian man in his late 60s with short white hair and a neatly trimmed white beard sits upright in a simple armchair. A static chest-up composition and soft frontal daylight keep his face natural, unobstructed, and sharply focused. He wears a pale blue shirt. Both hands rest separately on the armrests and remain fully visible. He looks directly into the lens, takes a small breath, and says in a warm, steady voice, "Rest is not a reward for finishing everything. Nothing is ever finished." He relaxes his shoulders slightly and gives one gentle nod. The audio is his voice, a distant bird outside the window, and quiet room ambience; the camera never moves.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-0/ltx_2_base.mp4" poster="static/videos/main480-0/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-0/omniforcing.mp4" poster="static/videos/main480-0/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-0/salt_tf_dcm_route.mp4" poster="static/videos/main480-0/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-0/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-0/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div><div class="video-case" id="main480-1" hidden><div class="case-header"><div class="case-title">Studio speaker <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 8</span></div><div class="case-prompt">[Shot 1][0.0s-5.0s]: In a professional grey-backdrop studio, a Caucasian man in his mid-30s with shoulder-length dark hair and a trimmed beard stands in an eye-level medium shot. Soft frontal light keeps his face and both hands crisp. He addresses the camera as if recording an opinion video. His hands begin open and separated at waist height; he rotates only his right palm upward in one slow conversational gesture and says, "Being confident doesn't mean being certain. It means staying honest when you're not." He returns both hands to a relaxed neutral position and holds direct eye contact. His movement is controlled and anatomically simple, with no fingers crossing or leaving frame. The scene has no music, only his clear voice and faint studio ventilation.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-1/ltx_2_base.mp4" poster="static/videos/main480-1/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-1/omniforcing.mp4" poster="static/videos/main480-1/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-1/salt_tf_dcm_route.mp4" poster="static/videos/main480-1/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-1/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-1/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div><div class="video-case" id="main480-2" hidden><div class="case-header"><div class="case-title">Race car <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 9</span></div><div class="case-prompt">A car is driving on a race track at high speed, appearing to be a sports car. The track has a curve and is bordered by grass and fences, with markings like numbers and lines. The sound of the car engine revving and tires squealing fills the air as it accelerates around the track.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-2/ltx_2_base.mp4" poster="static/videos/main480-2/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-2/omniforcing.mp4" poster="static/videos/main480-2/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-2/salt_tf_dcm_route.mp4" poster="static/videos/main480-2/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-2/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-2/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div><div class="video-case" id="main480-3" hidden><div class="case-header"><div class="case-title">Cat at a window <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 9</span></div><div class="case-prompt">A black cat is sitting on a cat tree platform, looking out of a window to the left. The cat meows as it gazes outside. The cat tree has a scratching post and a platform with a textured surface, and the background shows a white wall and part of a window frame.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-3/ltx_2_base.mp4" poster="static/videos/main480-3/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-3/omniforcing.mp4" poster="static/videos/main480-3/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-3/salt_tf_dcm_route.mp4" poster="static/videos/main480-3/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-3/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-3/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div><div class="video-case" id="main480-4" hidden><div class="case-header"><div class="case-title">Bald eagle <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 8</span></div><div class="case-prompt">A bald eagle with a white head and tail, and dark brown feathers covering the rest of its body, perches on a branch in a snowy landscape. It has a yellow beak and orange feet. Bird sounds, including chirping, fill the air.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-4/ltx_2_base.mp4" poster="static/videos/main480-4/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-4/omniforcing.mp4" poster="static/videos/main480-4/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-4/salt_tf_dcm_route.mp4" poster="static/videos/main480-4/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-4/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-4/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div><div class="video-case" id="main480-5" hidden><div class="case-header"><div class="case-title">Rocky island <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 8</span></div><div class="case-prompt">An aerial view reveals a small island with a steep, rocky coastline where waves crash continuously and rhythmically against the rocks, creating a soothing ambiance. The island is covered in green vegetation, and some paths are visible. The surrounding ocean is a deep blue color.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-5/ltx_2_base.mp4" poster="static/videos/main480-5/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-5/omniforcing.mp4" poster="static/videos/main480-5/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-5/salt_tf_dcm_route.mp4" poster="static/videos/main480-5/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-5/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-5/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div><div class="video-case" id="main480-6" hidden><div class="case-header"><div class="case-title">Coast <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 4</span></div><div class="case-prompt">A beautiful beach with large white cliffs on either side and a sandy shoreline is shown. The cliffs have a rough texture with some greenery visible, and ocean waves crash against the rocks at their base. Sunlight filters through partly cloudy skies, casting a warm and serene glow. The sound of waves crashing against the rocks and the gentle breeze blowing contributes to the peaceful atmosphere.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/main480-6/ltx_2_base.mp4" poster="static/videos/main480-6/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/main480-6/omniforcing.mp4" poster="static/videos/main480-6/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label">Salt++ (TF-dCM route)</div><video src="static/videos/main480-6/salt_tf_dcm_route.mp4" poster="static/videos/main480-6/salt_tf_dcm_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div><div class="video-cell"><div class="video-label ours">Salt++ (AR–AR DMD route)</div><video src="static/videos/main480-6/salt_ar_ar_dmd_route.mp4" poster="static/videos/main480-6/salt_ar_ar_dmd_route.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps</div></div></div></div></div><div class="case-group" data-group="hr960"><h3 class="subsection-title">1664&times;960 scale-wise generation</h3><p class="section-subtitle">Two low-resolution and two high-resolution generator calls per block, still four calls in total.</p><div class="case-tabs"><button class="case-tab active" data-case="hr960-0">Fitness coach</button><button class="case-tab" data-case="hr960-1">Wellness host</button></div><div class="video-case" id="hr960-0"><div class="case-header"><div class="case-title">Fitness coach <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 6</span></div><div class="case-prompt">[Shot 1][0.0s-5.0s]: In a minimalist fitness studio with a neutral grey wall, a mature Black man with a shaved head and a short grey beard stands on a black mat. The camera is locked in an eye-level medium shot, and broad soft lighting keeps his face, shoulders, and hands crisp without motion blur. He wears a maroon athletic shirt. Both hands begin open at waist height, palms angled inward and clearly separated. He brings them slowly upward by a few inches while maintaining direct eye contact and says in a calm, supportive voice, "You don't need more motivation; you need one smaller promise." His hands stop and remain still as he gives a gentle nod. The studio is quiet except for his resonant voice and faint ventilation hum.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/hr960-0/ltx_2_base.mp4" poster="static/videos/hr960-0/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 + 3 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/hr960-0/omniforcing.mp4" poster="static/videos/hr960-0/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps, direct 960p</div></div><div class="video-cell"><div class="video-label">Salt++ 480p</div><video src="static/videos/hr960-0/salt_480p.mp4" poster="static/videos/hr960-0/salt_480p.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps, bilinear 2×</div></div><div class="video-cell"><div class="video-label ours">Salt++ 960p</div><video src="static/videos/hr960-0/salt_960p.mp4" poster="static/videos/hr960-0/salt_960p.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">2 LR + 2 HR</div></div></div></div><div class="video-case" id="hr960-1" hidden><div class="case-header"><div class="case-title">Wellness host <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 12</span></div><div class="case-prompt">[Shot 1][0.0s-5.0s]: A calm wellness-channel video in a sunlit living room. A Caucasian man in his late 60s with short white hair and a neatly trimmed white beard sits upright in a simple armchair. A static chest-up composition and soft frontal daylight keep his face natural, unobstructed, and sharply focused. He wears a pale blue shirt. Both hands rest separately on the armrests and remain fully visible. He looks directly into the lens, takes a small breath, and says in a warm, steady voice, "Rest is not a reward for finishing everything. Nothing is ever finished." He relaxes his shoulders slightly and gives one gentle nod. The audio is his voice, a distant bird outside the window, and quiet room ambience; the camera never moves.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">LTX-2 Base</div><video src="static/videos/hr960-1/ltx_2_base.mp4" poster="static/videos/hr960-1/ltx_2_base.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">40 + 3 steps</div></div><div class="video-cell"><div class="video-label">OmniForcing</div><video src="static/videos/hr960-1/omniforcing.mp4" poster="static/videos/hr960-1/omniforcing.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps, direct 960p</div></div><div class="video-cell"><div class="video-label">Salt++ 480p</div><video src="static/videos/hr960-1/salt_480p.mp4" poster="static/videos/hr960-1/salt_480p.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">4 steps, bilinear 2×</div></div><div class="video-cell"><div class="video-label ours">Salt++ 960p</div><video src="static/videos/hr960-1/salt_960p.mp4" poster="static/videos/hr960-1/salt_960p.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">2 LR + 2 HR</div></div></div></div></div><div class="case-group" data-group="ablation"><h3 class="subsection-title">Ablations</h3><p class="section-subtitle">Score&ndash;context configuration for few-step initialization, and teacher-guidance calibration during distillation.</p><div class="case-tabs"><button class="case-tab active" data-case="ablation-0">Cherry-blossom garden</button><button class="case-tab" data-case="ablation-1">Keyboard player</button><button class="case-tab" data-case="ablation-2">Microphone host</button><button class="case-tab" data-case="ablation-3">Studio speaker</button></div><div class="video-case" id="ablation-0"><div class="case-header"><div class="case-title">Cherry-blossom garden <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 7</span></div><div class="case-prompt">A serene garden with cherry blossom trees featuring pink and white flowers is shown. In the background, a traditional Japanese-style building with a sloped roof stands. The garden includes a pond with clear water surrounded by rocks and greenery. The sky is clear and bright, indicating a sunny day. Soft, gentle piano music plays in the background throughout.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">TF-dCM</div><video src="static/videos/ablation-0/tf_dcm.mp4" poster="static/videos/ablation-0/tf_dcm.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">consistency distillation</div></div><div class="video-cell"><div class="video-label">BI–BI DMD</div><video src="static/videos/ablation-0/bi_bi_dmd.mp4" poster="static/videos/ablation-0/bi_bi_dmd.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">both scores bidirectional</div></div><div class="video-cell"><div class="video-label">BI–AR DMD</div><video src="static/videos/ablation-0/bi_ar_dmd.mp4" poster="static/videos/ablation-0/bi_ar_dmd.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">fake score causal</div></div><div class="video-cell"><div class="video-label ours">AR–AR DMD</div><video src="static/videos/ablation-0/ar_ar_dmd.mp4" poster="static/videos/ablation-0/ar_ar_dmd.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">context aligned</div></div></div></div><div class="video-case" id="ablation-1" hidden><div class="case-header"><div class="case-title">Keyboard player <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 7</span></div><div class="case-prompt">A person is playing a keyboard, their hands pressing the keys as music fills the air. Music sheets are visible on the right side of the keyboard.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid quad"><div class="video-cell"><div class="video-label">TF-dCM</div><video src="static/videos/ablation-1/tf_dcm.mp4" poster="static/videos/ablation-1/tf_dcm.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">consistency distillation</div></div><div class="video-cell"><div class="video-label">BI–BI DMD</div><video src="static/videos/ablation-1/bi_bi_dmd.mp4" poster="static/videos/ablation-1/bi_bi_dmd.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">both scores bidirectional</div></div><div class="video-cell"><div class="video-label">BI–AR DMD</div><video src="static/videos/ablation-1/bi_ar_dmd.mp4" poster="static/videos/ablation-1/bi_ar_dmd.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">fake score causal</div></div><div class="video-cell"><div class="video-label ours">AR–AR DMD</div><video src="static/videos/ablation-1/ar_ar_dmd.mp4" poster="static/videos/ablation-1/ar_ar_dmd.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">context aligned</div></div></div></div><div class="video-case" id="ablation-2" hidden><div class="case-header"><div class="case-title">Microphone host <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 11</span></div><div class="case-prompt">In a modern, clean indoor setting with soft, diffused lighting and a shallow depth of field, a Black male in his 30s is the central focus. He has a short-cropped beard and is wearing white over-ear headphones and a dark charcoal grey t-shirt. [Shot 1]: The camera is positioned in a static medium close-up, capturing him from the chest up. He sits behind a professional boom-mounted microphone, which is positioned slightly to the right of the frame. In the background, there is a minimalist shelf with some boxes, a small potted tree, and a tall snake plant, all slightly blurred to keep the focus on him. He maintains a steady, thoughtful gaze directed toward an off-screen conversationalist. As the video progresses, he speaks with a calm, resonant, and steady tone, saying, "It takes, sometimes, it takes these moments of extreme pain". His facial expression remains serious and reflective throughout the delivery, with subtle mouth movements and a slight tilt of his head as he emphasizes certain words. The room is quiet, with only the sound of his voice and a faint electronic hum audible.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid duo"><div class="video-cell"><div class="video-label">Fixed guidance 4.0</div><video src="static/videos/ablation-2/fixed_guidance_4_0.mp4" poster="static/videos/ablation-2/fixed_guidance_4_0.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">inherited from consistency distillation</div></div><div class="video-cell"><div class="video-label ours">Sampled U(1.0, 3.5)</div><video src="static/videos/ablation-2/sampled_u_1_0_3_5.mp4" poster="static/videos/ablation-2/sampled_u_1_0_3_5.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">calibrated for DMD</div></div></div></div><div class="video-case" id="ablation-3" hidden><div class="case-header"><div class="case-title">Studio speaker <span style="font-weight:500;color:var(--muted)">&middot; paper Fig. 11</span></div><div class="case-prompt">[shot 1][0.0s-5.6s] The video uses a clean, professional cinematic live-action style, with a neutral cool color palette dominated by dark gray tones. The setting is a studio with a dark, textured gray background. A static medium close-up shot frames a bald young Caucasian man in his late 20s to early 30s as the sole focus, lit by dramatic directional side lighting that highlights the contours of his face while casting soft shadow on the far side, creating subtle high contrast with a calm, analytical atmosphere. He has light-colored eyes, a short well-groomed light brown beard, and wears a dark black button-up shirt. He looks directly at the camera with a serious, engaged expression, speaking in a clear, resonant baritone at a steady, persuasive pace with an analytical tone: "What I mean is think about how he thinks about the markets.". As he speaks, he raises his right hand into the frame, forming an "OK" gesture with his thumb and index finger touching, holding the gesture and moving it slightly to punctuate his points. He continues speaking: "Think about how he thinks about public policy.". After finishing the line, he lowers his right hand out of the frame, and his expression softens slightly. The background audio is minimal, with only faint, clean studio room tone, no music or additional sound effects are present.</div></div><div class="case-bar"><button class="j-play">Play together</button><button class="j-restart">Restart</button><button class="j-sound">Unmute</button></div><div class="video-grid duo"><div class="video-cell"><div class="video-label">Fixed guidance 4.0</div><video src="static/videos/ablation-3/fixed_guidance_4_0.mp4" poster="static/videos/ablation-3/fixed_guidance_4_0.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">inherited from consistency distillation</div></div><div class="video-cell"><div class="video-label ours">Sampled U(1.0, 3.5)</div><video src="static/videos/ablation-3/sampled_u_1_0_3_5.mp4" poster="static/videos/ablation-3/sampled_u_1_0_3_5.jpg" loop muted playsinline controls preload="none"></video><div class="video-note">calibrated for DMD</div></div></div></div></div>
+    </div>
+  </section>
+
+  <section id="results" class="section">
+    <div class="container wide">
+      <div class="section-kicker has-text-centered">04 / Results</div>
+      <h2 class="section-title has-text-centered">Quantitative results</h2>
+      <p class="section-subtitle has-text-centered">
+        JavisBench-mini and VBench, all causal models at four steps with CFG = 1.
+      </p>
+      <div class="metric-grid"><div class="metric-card"><div class="metric-value">+57%</div><div class="metric-label">Visual quality over OmniForcing, 480p, 4 steps</div></div><div class="metric-card"><div class="metric-value">+45%</div><div class="metric-label">Motion quality over OmniForcing, 480p, 4 steps</div></div><div class="metric-card"><div class="metric-value">1664&times;960</div><div class="metric-label">Four generator calls per block, scale-wise</div></div></div>
+      <div class="table-block"><div class="table-title">Table 1(a). JavisBench-mini, official prompts, 480p</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Model</th><th>Causal</th><th>Steps</th><th>VQ&uarr;</th><th>MQ&uarr;</th><th>AQ&uarr;</th><th>CLIP&uarr;</th><th>IB-AV&uarr;</th><th>Javis&uarr;</th><th>DeSync&darr;</th></tr></thead><tbody><tr><td>LTX-2 Base</td><td>No</td><td>40</td><td>1.884</td><td>0.566</td><td>4.986</td><td>0.311</td><td>0.239</td><td>0.200</td><td>0.608</td></tr><tr><td>AR teacher (CSF)</td><td>Yes</td><td>40</td><td>2.304</td><td>0.857</td><td>4.565</td><td>0.316</td><td>0.202</td><td>0.162</td><td>0.746</td></tr><tr><td>OmniForcing</td><td>Yes</td><td>4</td><td>1.807</td><td>0.699</td><td>4.718</td><td>0.303</td><td>0.163</td><td>0.124</td><td class="second">0.745</td></tr><tr><td>Salt++ (TF-dCM route)</td><td>Yes</td><td>4</td><td class="second">2.013</td><td class="second">0.826</td><td class="second">4.976</td><td class="second">0.313</td><td class="best">0.229</td><td class="best">0.185</td><td class="best">0.710</td></tr><tr class="ours-row"><td>Salt++ (AR&ndash;AR DMD route)</td><td>Yes</td><td>4</td><td class="best">2.838</td><td class="best">1.010</td><td class="best">4.991</td><td class="best">0.316</td><td class="second">0.184</td><td class="second">0.146</td><td>0.759</td></tr></tbody></table></div><p class="table-note">Bold is best and underline is second best among the 4-step rows.</p></div><div class="table-block"><div class="table-title">Table 1(b). JavisBench-mini, official prompts, 1664&times;960</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Model</th><th>Causal</th><th>Steps</th><th>VQ&uarr;</th><th>MQ&uarr;</th><th>AQ&uarr;</th><th>CLIP&uarr;</th><th>IB-AV&uarr;</th><th>Javis&uarr;</th><th>DeSync&darr;</th></tr></thead><tbody><tr><td>LTX-2 Base</td><td>No</td><td>40+3</td><td>2.231</td><td>0.607</td><td>4.867</td><td>0.311</td><td>0.169</td><td>0.145</td><td class="best">0.658</td></tr><tr><td>OmniForcing</td><td>Yes</td><td>4</td><td>2.298</td><td>0.832</td><td>4.721</td><td>0.293</td><td>0.165</td><td>0.128</td><td>0.755</td></tr><tr class="ours-row"><td>Salt++</td><td>Yes</td><td>4</td><td class="best">2.730</td><td class="best">0.957</td><td class="best">5.113</td><td class="best">0.318</td><td class="best">0.193</td><td class="best">0.157</td><td>0.768</td></tr></tbody></table></div><p class="table-note">Bold marks the best result across all methods.</p></div><div class="table-block"><div class="table-title">Table 1(c). VBench video quality and within-clip consistency, 480p</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Model</th><th>Causal</th><th>Steps</th><th>Aesthetic&uarr;</th><th>Imaging&uarr;</th><th>Subject&uarr;</th><th>Background&uarr;</th></tr></thead><tbody><tr><td>LTX-2 Base</td><td>No</td><td>40</td><td>53.89</td><td>67.06</td><td>95.94</td><td>95.63</td></tr><tr><td>OmniForcing</td><td>Yes</td><td>4</td><td class="best">56.74</td><td class="second">68.41</td><td class="second">96.62</td><td>95.32</td></tr><tr><td>Salt++ (TF-dCM route)</td><td>Yes</td><td>4</td><td>53.65</td><td>62.87</td><td>96.58</td><td class="second">96.05</td></tr><tr class="ours-row"><td>Salt++ (AR&ndash;AR DMD route)</td><td>Yes</td><td>4</td><td class="second">55.43</td><td class="best">69.98</td><td class="best">97.01</td><td class="best">96.24</td></tr></tbody></table></div></div><div class="table-block"><div class="table-title">Table 2. 1,000 LTX-2-enhanced JavisBench prompts, 480p</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Model</th><th>Causal</th><th>Steps</th><th>VQ&uarr;</th><th>MQ&uarr;</th><th>AQ&uarr;</th><th>IB-AV&uarr;</th><th>AVH&uarr;</th><th>Javis&uarr;</th><th>DeSync&darr;</th></tr></thead><tbody><tr><td>LTX-2 Base</td><td>No</td><td>40</td><td>1.981</td><td>0.640</td><td>4.959</td><td>0.256</td><td>0.245</td><td>0.211</td><td>0.573</td></tr><tr><td>OmniForcing</td><td>Yes</td><td>4</td><td>1.774</td><td>0.607</td><td>4.613</td><td>0.158</td><td>0.152</td><td>0.121</td><td>0.734</td></tr><tr><td>Salt++ (TF-dCM route)</td><td>Yes</td><td>4</td><td class="second">2.074</td><td class="second">0.760</td><td class="second">4.838</td><td class="best">0.245</td><td class="best">0.233</td><td class="best">0.193</td><td class="second">0.704</td></tr><tr class="ours-row"><td>Salt++ (AR&ndash;AR DMD route)</td><td>Yes</td><td>4</td><td class="best">2.820</td><td class="best">0.999</td><td class="best">4.997</td><td class="second">0.192</td><td class="second">0.186</td><td class="second">0.151</td><td class="best">0.696</td></tr></tbody></table></div></div>
+    </div>
+  </section>
+
+  <section id="ablations" class="section is-soft">
+    <div class="container wide">
+      <div class="section-kicker has-text-centered">05 / Ablations</div>
+      <h2 class="section-title has-text-centered">Ablations</h2>
+      <p class="section-subtitle has-text-centered">
+        Which conditional distributions are compared, and which reference is distilled.
+      </p>
+      <div class="table-block"><div class="table-title">Table 3(a). Few-step initialization: score contexts and objectives</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Objective</th><th>Scores</th><th>VQ&uarr;</th><th>MQ&uarr;</th><th>AQ&uarr;</th><th>CLIP&uarr;</th><th>IB-TV&uarr;</th><th>IB-TA&uarr;</th><th>DeSync&darr;</th></tr></thead><tbody><tr><td>TF-dCM</td><td>&ndash;</td><td class="second">1.916</td><td class="second">0.611</td><td>4.686</td><td class="second">0.307</td><td>0.264</td><td>0.145</td><td>0.766</td></tr><tr><td>TF-DMD</td><td>BI/BI</td><td>0.837</td><td>0.140</td><td class="best">4.796</td><td>0.301</td><td class="second">0.266</td><td>0.144</td><td>0.811</td></tr><tr><td>TF-DMD</td><td>BI/AR</td><td>1.131</td><td>0.157</td><td>4.571</td><td>0.287</td><td>0.255</td><td class="second">0.149</td><td class="best">0.531</td></tr><tr class="ours-row"><td>TF-DMD</td><td>AR/AR</td><td class="best">3.147</td><td class="best">1.351</td><td class="second">4.750</td><td class="best">0.317</td><td class="best">0.271</td><td class="best">0.153</td><td class="second">0.726</td></tr></tbody></table></div><p class="table-note">BI/AR denotes the visibility of the real and fake score models respectively.</p></div><div class="table-block"><div class="table-title">Table 3(b). Teacher guidance under aligned AR&ndash;AR scores</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Teacher guidance</th><th>VQ&uarr; (off.)</th><th>MQ&uarr; (off.)</th><th>VQ&uarr; (rew.)</th><th>MQ&uarr; (rew.)</th><th>AQ&uarr;</th><th>CLIP&uarr;</th><th>DeSync&darr;</th></tr></thead><tbody><tr><td>Fixed 4.0</td><td>1.643</td><td>0.572</td><td>1.712</td><td>0.598</td><td class="best">4.934</td><td>0.315</td><td>0.843</td></tr><tr class="ours-row"><td>Randomized U(1.0, 3.5)</td><td class="best">3.147</td><td class="best">1.351</td><td class="best">3.132</td><td class="best">1.261</td><td>4.750</td><td class="best">0.317</td><td class="best">0.726</td></tr></tbody></table></div><p class="table-note">Guidance inherited from consistency distillation versus guidance calibrated for DMD.</p></div>
+    </div>
+  </section>
+
+  
+
+<script>
+document.querySelectorAll('.case-group').forEach(function (group) {
+  var cases = group.querySelectorAll('.video-case');
+  var tabs = group.querySelectorAll('.case-tab');
+  function stopAll() {
+    group.querySelectorAll('video').forEach(function (v) { v.pause(); });
+  }
+  tabs.forEach(function (tab) {
+    tab.onclick = function () {
+      stopAll();
+      cases.forEach(function (c) { c.hidden = c.id !== tab.dataset.case; });
+      tabs.forEach(function (t) { t.classList.toggle('active', t === tab); });
+    };
+  });
+  cases.forEach(function (c) {
+    var vids = [].slice.call(c.querySelectorAll('video'));
+    var play = c.querySelector('.j-play');
+    var sound = c.querySelector('.j-sound');
+    play.onclick = function () {
+      if (vids.some(function (v) { return v.paused; })) {
+        var t = vids[0].currentTime;
+        vids.forEach(function (v) { v.currentTime = t; v.play().catch(function () {}); });
+      } else {
+        vids.forEach(function (v) { v.pause(); });
+      }
+    };
+    c.querySelector('.j-restart').onclick = function () {
+      vids.forEach(function (v) { v.currentTime = 0; });
+    };
+    sound.onclick = function () {
+      var muted = !vids[0].muted;
+      vids.forEach(function (v) { v.muted = muted; });
+      sound.textContent = muted ? 'Unmute' : 'Mute';
+    };
+    vids.forEach(function (v) {
+      ['play', 'pause'].forEach(function (ev) {
+        v.addEventListener(ev, function () {
+          play.textContent = vids.every(function (x) { return !x.paused; })
+            ? 'Pause together' : 'Play together';
+        });
+      });
+    });
+  });
+});
+</script>
+<script>
+(function () {
+  var root = document.getElementById('showcase');
+  if (!root) return;
+  var slides = [].slice.call(root.querySelectorAll('.slide'));
+  var dots = [].slice.call(root.querySelectorAll('.dots button'));
+  var count = root.querySelector('.slide-count b');
+  var title = root.querySelector('.slide-text h3');
+  var caption = root.querySelector('.slide-text p');
+  var soundBtn = root.querySelector('.sound-btn');
+  var idx = 0, soundOn = false, inView = true, held = false;
+
+  function vids(s) { return [].slice.call(s.querySelectorAll('video')); }
+  function lead(s) { return s.querySelector('video[data-lead]') || vids(s)[0]; }
+
+  function applySound() {
+    slides.forEach(function (s, i) {
+      vids(s).forEach(function (v) {
+        v.muted = !(soundOn && i === idx && v.parentNode.classList.contains('audio-on'));
+      });
+    });
+    soundBtn.classList.toggle('on', soundOn);
+    soundBtn.innerHTML = soundOn ? '&#128266; Sound on' : '&#128264; Turn sound on';
+  }
+
+  function play() {
+    if (!inView || held) return;
+    var s = slides[idx], l = lead(s);
+    vids(s).forEach(function (v) {
+      if (v !== l) v.currentTime = l.currentTime;
+      v.play().catch(function () {});
+    });
+  }
+
+  function pause() { vids(slides[idx]).forEach(function (v) { v.pause(); }); }
+
+  function show(i) {
+    pause();
+    idx = (i + slides.length) % slides.length;
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === idx); });
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === idx); });
+    var s = slides[idx];
+    count.textContent = String(idx + 1).padStart(2, '0');
+    title.innerHTML = s.dataset.title;
+    caption.innerHTML = s.dataset.caption;
+    vids(s).forEach(function (v) { v.preload = 'auto'; v.currentTime = 0; });
+    var nxt = slides[(idx + 1) % slides.length];
+    vids(nxt).forEach(function (v) { if (v.preload === 'none') v.preload = 'metadata'; });
+    held = false;
+    applySound();
+    play();
+  }
+
+  slides.forEach(function (s) {
+    lead(s).addEventListener('ended', function () { show(idx + 1); });
+    s.querySelector('.slide-media').addEventListener('click', function (e) {
+      if (e.target.closest('.listen')) return;
+      if (lead(s).paused) { held = false; play(); } else { held = true; pause(); }
+    });
+    [].slice.call(s.querySelectorAll('.listen')).forEach(function (b) {
+      b.addEventListener('click', function () {
+        [].slice.call(s.querySelectorAll('.slide-clip')).forEach(function (c) {
+          c.classList.toggle('audio-on', c === b.closest('.slide-clip'));
+        });
+        soundOn = true;
+        applySound();
+      });
+    });
+  });
+
+  root.querySelector('.prev').onclick = function () { show(idx - 1); };
+  root.querySelector('.next').onclick = function () { show(idx + 1); };
+  dots.forEach(function (d, k) { d.onclick = function () { show(k); }; });
+  soundBtn.onclick = function () { soundOn = !soundOn; applySound(); held = false; play(); };
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      inView = es[0].isIntersecting;
+      if (inView) play(); else pause();
+    }, { threshold: 0.35 }).observe(root.querySelector('.showcase-frame'));
+  }
+
+  document.addEventListener('play', function (e) {
+    if (!root.contains(e.target)) { held = true; pause(); }
+  }, true);
+
+  applySound();
+  play();
+})();
+
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.topnav-links a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var secs = Object.keys(byId).map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+  function update() {
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function (s) { if (s.offsetTop <= y) cur = s.id; });
+    links.forEach(function (a) { a.classList.toggle('active', byId[cur] === a); });
+    if (cur && window.innerWidth < 768) {
+      byId[cur].parentNode.scrollLeft = byId[cur].offsetLeft - 40;
+    }
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+</body>
+</html>
