@@ -72,6 +72,14 @@ Education
 
 Research
 ------
+**Salt++: Context-Aligned Post-Training for Few-Step Streaming Multimodal Generation**  
+<span style="font-size: smaller;">
+**Xingtong Ge**, Yutong Wang, Lunjie Zhu, Haitao Lin, Fangyu Lin, Yushi Huang, Xin Zhang, Yi Zhang, Yu Liu, Jun Zhang  
+Preprint, 2026  
+[[code](https://github.com/XingtongGe/Saltpp)]
+[[project page](https://xingtongge.github.io/Saltpp/)]
+</span>
+
 **Salt: Self-Consistent Distribution Matching with Cache-Aware Training for Fast Video Generation**  
 <span style="font-size: smaller;">
 **Xingtong Ge**, Yi Zhang, Yushi Huang, Dailan He, Xiahong Wang, Bingqi Ma, Guanglu Song, Yu Liu, Jun Zhang  
