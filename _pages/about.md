@@ -76,6 +76,7 @@ Research
 <span style="font-size: smaller;">
 **Xingtong Ge**, Yutong Wang, Lunjie Zhu, Haitao Lin, Fangyu Lin, Yushi Huang, Xin Zhang, Yi Zhang, Yu Liu, Jun Zhang  
 Preprint, 2026  
+[[paper](https://arxiv.org/abs/2609.36995)]
 [[code](https://github.com/XingtongGe/Saltpp)]
 [[project page](https://xingtongge.github.io/Saltpp/)]
 </span>
